@@ -1,0 +1,28 @@
+<div class="navigation">
+  <div class="navigation-content">
+    <a class="heading-link" routerLink="home">Tours</a>
+
+    <div class="links-list">
+      <ul class="list-items">
+        <li>
+          <a routerLinkActive="active" routerLink="home" class="nav-link">Home</a>
+        </li>
+        <li>
+          <a routerLinkActive="active" routerLink="dashboard" class="nav-link">Dashboard</a>
+        </li>
+      </ul>
+
+      <ul class="list-items">
+        <li>
+          <a routerLinkActive="active" routerLink="auth" class="nav-link">Login</a>
+        </li>
+        <li>
+          <a routerLinkActive="active" routerLink="dashboard" class="nav-link">Sign Up</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
