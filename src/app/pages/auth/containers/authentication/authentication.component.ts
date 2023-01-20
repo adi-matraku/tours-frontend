@@ -5,6 +5,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatIconModule} from "@angular/material/icon";
 import {MatInputModule} from "@angular/material/input";
+import {RouterModule} from "@angular/router";
 
 @Component({
   selector: 'app-authentication',
@@ -15,7 +16,9 @@ import {MatInputModule} from "@angular/material/input";
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    MatIconModule],
+    MatIconModule,
+    RouterModule
+  ],
   templateUrl: './authentication.component.html',
   styleUrls: ['./authentication.component.scss']
 })
@@ -23,10 +26,11 @@ export class AuthenticationComponent implements OnInit {
   hide = true;
   error!: string;
   isLogin: boolean = true;
+  submitted: boolean = false;
 
   form = this.fb.group({
-    email: ['tester@gmail.com', {validators: [Validators.required, Validators.minLength(6)]}],
-    password: ['12345678', Validators.required]
+    email: ['', [Validators.required, Validators.minLength(6), Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(8)]]
   });
 
   constructor(private fb: FormBuilder) { }
@@ -35,8 +39,9 @@ export class AuthenticationComponent implements OnInit {
   }
 
   onLogin() {
-    console.log(this.isLogin);
-    console.log(this.form.value);
+    this.submitted = true;
+
+
   }
 
 }

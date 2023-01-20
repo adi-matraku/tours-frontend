@@ -1,7 +1,5 @@
 import {Routes} from "@angular/router";
 import {MainLayoutComponent} from "./layout/main-layout/main-layout.component";
-import {HOME_ROUTES} from "./pages/home/home.routes";
-import {DASHBOARD_ROUTES} from "./pages/dashboard/dashboard.routes";
 
 export const appRoutes: Routes = [
   {
@@ -16,16 +14,15 @@ export const appRoutes: Routes = [
     path: '', component: MainLayoutComponent, children: [
       {
         path: 'home',
-        children: [
-          ...HOME_ROUTES
-        ]
+        loadChildren: () =>
+          import('./pages/home/home.routes').then((m) => m.HOME_ROUTES)
       },
       {
         path: 'dashboard',
-        children: [
-          ...DASHBOARD_ROUTES
-        ]
+        loadChildren: () =>
+          import('./pages/dashboard/dashboard.routes').then((m) => m.DASHBOARD_ROUTES)
       }
     ]
-  }
+  },
+  {path: '**', redirectTo: 'home'}
 ]
