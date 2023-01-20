@@ -6,8 +6,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatIconModule} from "@angular/material/icon";
 import {MatInputModule} from "@angular/material/input";
 import {RouterModule} from "@angular/router";
-import {AuthStore, UserModel} from "../../../../core/services/auth.store";
-import {UserCredentials} from "../../models/user-credentials.model";
+import {AuthStore} from "../../../../core/services/auth.store";
 
 @Component({
   selector: 'app-authentication',
@@ -28,7 +27,6 @@ import {UserCredentials} from "../../models/user-credentials.model";
 export class AuthenticationComponent implements OnInit {
   hide = true;
   error!: string;
-  isLogin: boolean = true;
   submitted: boolean = false;
 
   form = this.fb.nonNullable.group({
@@ -47,10 +45,7 @@ export class AuthenticationComponent implements OnInit {
       this.form.markAllAsTouched();
       return;
     } else {
-      const data = this.form.value;
-      this.isLogin ?
-        this.authStore.login(this.form.getRawValue()) :
-        console.log('here')
+      this.authStore.login(this.form.getRawValue())
     }
 
   }

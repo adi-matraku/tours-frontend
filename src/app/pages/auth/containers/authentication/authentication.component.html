@@ -1,37 +1,31 @@
-<div class="page-container">
-  <div class="form-container">
-    <button routerLink="home" mat-fab color="primary" class="button-home">
-      <mat-icon>home</mat-icon>
-    </button>
-    <form [formGroup]="form" (ngSubmit)="onLogin()">
-      <h2>Welcome back!</h2>
-      <div class="input-container">
-        <mat-form-field appearance="outline">
-          <mat-label>Email</mat-label>
-          <input matInput formControlName="email" placeholder="Enter your email">
-          <mat-error *ngIf="submitted && form.get('email')?.invalid">Please input a valid email</mat-error>
-        </mat-form-field>
-      </div>
-      <div class="input-container">
-        <mat-form-field class="custom-form-field" appearance="outline">
-          <mat-label>Password</mat-label>
-          <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" placeholder="Enter your password">
-          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-          </button>
-          <mat-hint>*Password min. length: 8</mat-hint>
-          <mat-error *ngIf="submitted && form.get('password')?.invalid">Please input a valid password</mat-error>
-        </mat-form-field>
-      </div>
-      <div class="error" *ngIf="error">
-        <span>{{error}}</span>
-      </div>
+<div class="form-content">
+  <form [formGroup]="form" (ngSubmit)="onLogin()">
+    <h2>Welcome back!</h2>
+    <div class="input-container">
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" placeholder="Enter your email">
+        <mat-error *ngIf="submitted && form.get('email')?.invalid">Please input a valid email</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="input-container">
+      <mat-form-field class="custom-form-field" appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" placeholder="Enter your password">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-hint>*Password min. length: 8</mat-hint>
+        <mat-error *ngIf="submitted && form.get('password')?.invalid">Please input a valid password</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="error" *ngIf="error">
+      <span>{{error}}</span>
+    </div>
 
-      <div class="buttons-box">
-        <button mat-raised-button color="primary" type="submit">{{isLogin ? 'Login' : 'Register'}}</button>
-        <button mat-button color="primary" type="button" (click)="isLogin = !isLogin">{{isLogin ? 'Create an account' : 'Log in'}}</button>
-      </div>
-    </form>
-  </div>
-  <div class="image-container"></div>
+    <div class="buttons-box">
+      <button mat-raised-button color="primary" type="submit">Login</button>
+      <button mat-button color="primary" type="button" routerLink="/auth/register">Create an account</button>
+    </div>
+  </form>
 </div>

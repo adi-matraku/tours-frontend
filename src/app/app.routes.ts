@@ -1,14 +1,19 @@
 import {Routes} from "@angular/router";
 import {MainLayoutComponent} from "./layout/main-layout/main-layout.component";
+import {AuthLayoutComponent} from "./layout/auth-layout/auth-layout.component";
 
 export const appRoutes: Routes = [
   {
     path: '', redirectTo: 'home', pathMatch: 'full'
   },
   {
-    path: 'auth',
-    loadComponent: () => import('./pages/auth/containers/authentication/authentication.component')
-      .then(m => m.AuthenticationComponent)
+    path: 'auth', component: AuthLayoutComponent, children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./pages/auth/auth.routes').then((m) => m.AUTH_ROUTES)
+      },
+    ]
   },
   {
     path: '', component: MainLayoutComponent, children: [
