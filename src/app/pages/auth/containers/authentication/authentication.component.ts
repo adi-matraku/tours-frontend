@@ -22,7 +22,6 @@ import {AuthStore} from "../../../../core/services/auth.store";
   ],
   templateUrl: './authentication.component.html',
   styleUrls: ['./authentication.component.scss'],
-  providers: [AuthStore]
 })
 export class AuthenticationComponent implements OnInit {
   hide = true;
@@ -34,7 +33,7 @@ export class AuthenticationComponent implements OnInit {
     password: ['', [Validators.required, Validators.minLength(8)]]
   });
 
-  constructor(private fb: FormBuilder, public authStore: AuthStore) { }
+  constructor(private fb: FormBuilder, private authStore: AuthStore) { }
 
   ngOnInit(): void {
   }

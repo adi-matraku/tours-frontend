@@ -3,5 +3,5 @@ export interface UserRegistrationModel {
   password: string;
   name: string;
   imageUrl: string;
-  createdAt: Date;
+  createdAt: string;
 }

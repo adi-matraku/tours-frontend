@@ -4,6 +4,7 @@ import {AuthService} from "../../pages/auth/services/auth.service";
 import {UserCredentials} from "../../pages/auth/models/user-credentials.model";
 import {Injectable} from "@angular/core";
 import {Router} from "@angular/router";
+import {UserRegistrationModel} from "../../pages/auth/models/user-registration.model";
 
 export interface UserModel {
   id: number;
@@ -27,7 +28,9 @@ export const initialState: AuthState = {
   error: null
 }
 
-@Injectable()
+@Injectable({
+  providedIn: "root"
+})
 export class AuthStore extends ComponentStore<AuthState> {
 
   constructor(private authService: AuthService, private router: Router) {
@@ -52,6 +55,40 @@ export class AuthStore extends ComponentStore<AuthState> {
         this.authService.login(credentials).pipe(
           tap((res) => {
             console.log(res);
+            this.patchState({
+              user: res,
+              authenticating: false,
+              authenticated: true,
+              error: null,
+            });
+            localStorage.setItem('token', res.token)
+            this.router.navigateByUrl('home');
+          }),
+          catchError((err) => {
+            this.patchState({
+              user: null,
+              authenticating: false,
+              authenticated: false,
+              error: null,
+            });
+            return EMPTY;
+          })
+        )
+      )
+    )
+  )
+
+  register = this.effect((credentials$: Observable<UserRegistrationModel>) =>
+    credentials$.pipe(
+      tap(() => this.setState({
+        user: null,
+        authenticating: true,
+        authenticated: false,
+        error: null,
+      })),
+      switchMap((credentials) =>
+        this.authService.register(credentials).pipe(
+          tap((res) => {
             this.patchState({
               user: res,
               authenticating: false,

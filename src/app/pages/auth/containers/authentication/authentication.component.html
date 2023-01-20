@@ -15,7 +15,6 @@
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
-        <mat-hint>*Password min. length: 8</mat-hint>
         <mat-error *ngIf="submitted && form.get('password')?.invalid">Please input a valid password</mat-error>
       </mat-form-field>
     </div>
