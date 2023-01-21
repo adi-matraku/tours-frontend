@@ -1,0 +1,23 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="form-fields">
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" placeholder="Enter your name">
+      <mat-error *ngIf="submitted && form.get('name')?.invalid">Please input a valid name</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" placeholder="Enter your email">
+      <mat-error *ngIf="submitted && form.get('email')?.invalid">Please input a valid email</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Image Url</mat-label>
+      <input matInput formControlName="imageUrl" placeholder="Image url">
+      <mat-error *ngIf="submitted && form.get('imageUrl')?.invalid">Please input a valid email</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="button-box">
+    <button mat-raised-button color="primary" type="submit">Submit</button>
+  </div>
+</form>

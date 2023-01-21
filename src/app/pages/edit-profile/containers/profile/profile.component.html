@@ -1,0 +1,17 @@
+<div class="page-details">
+  <h2 class="page-details-header">Profile Details</h2>
+  <div class="form-content">
+    <ng-container *ngIf="userProfile$ | async as user; else loading">
+      {{user | json}}
+      <app-profile-form
+      [formValue]="user"
+      (submittedForm)="onEdit($event)"
+      >
+      </app-profile-form>
+    </ng-container>
+
+    <ng-template #loading>
+      <mat-spinner></mat-spinner>
+    </ng-template>
+  </div>
+</div>
