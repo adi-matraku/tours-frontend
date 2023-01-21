@@ -1,30 +1,37 @@
-<div class="form-content">
-  <form [formGroup]="form" (ngSubmit)="onLogin()">
-    <h2>Welcome back!</h2>
-    <div class="input-container">
-      <mat-form-field appearance="outline">
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email" placeholder="Enter your email">
-        <mat-error *ngIf="submitted && form.get('email')?.invalid">Please input a valid email</mat-error>
-      </mat-form-field>
-    </div>
-    <div class="input-container">
-      <mat-form-field class="custom-form-field" appearance="outline">
-        <mat-label>Password</mat-label>
-        <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" placeholder="Enter your password">
-        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
-        <mat-error *ngIf="submitted && form.get('password')?.invalid">Please input a valid password</mat-error>
-      </mat-form-field>
-    </div>
-    <div class="error" *ngIf="error">
-      <span>{{error}}</span>
-    </div>
+<form [formGroup]="form" (ngSubmit)="onLogin()" class="form-content">
+  <h2>Welcome back!</h2>
+  <div class="input-container">
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" placeholder="Enter your email">
+      <mat-error *ngIf="submitted && form.get('email')?.invalid">Please input a valid email</mat-error>
+    </mat-form-field>
+  </div>
+  <div class="input-container">
+    <mat-form-field class="custom-form-field" appearance="outline">
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" placeholder="Enter your password">
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-error *ngIf="submitted && form.get('password')?.invalid">Please input a valid password</mat-error>
+    </mat-form-field>
+  </div>
 
-    <div class="buttons-box">
-      <button mat-raised-button color="primary" type="submit">Login</button>
-      <button mat-button color="primary" type="button" routerLink="/auth/register">Create an account</button>
-    </div>
-  </form>
-</div>
+  <div class="buttons-box">
+    <ng-container *ngIf="authStore.state$ | async as state">
+      <p class="error" *ngIf="state.loginError">
+        {{state.loginError}}
+      </p>
+<!--      <p *ngIf="state.authenticating && !state.authenticated">Loading</p>-->
+      <button mat-raised-button color="primary" type="submit" [disabled]="state.authenticating">
+        Login
+      </button>
+      <button mat-button color="primary" type="button" [disabled]="state.authenticating"
+              routerLink="/auth/register" (click)="authStore.setInitialState()">
+        Create an account
+      </button>
+    </ng-container>
+  </div>
+</form>
+

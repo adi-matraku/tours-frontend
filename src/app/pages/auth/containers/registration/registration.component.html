@@ -1,42 +1,51 @@
-<div class="form-content">
-  <form [formGroup]="form" (ngSubmit)="onRegister()">
-    <h2>Register your account!</h2>
-    <div class="input-container">
-      <mat-form-field appearance="outline">
-        <mat-label>Name</mat-label>
-        <input matInput formControlName="name" placeholder="Enter your name">
-        <mat-error *ngIf="submitted && form.get('name')?.invalid">Please input a valid name</mat-error>
-      </mat-form-field>
-    </div>
-    <div class="input-container">
-      <mat-form-field appearance="outline">
-        <mat-label>Image Url</mat-label>
-        <input matInput formControlName="imageUrl" placeholder="Enter your image url">
-        <mat-error *ngIf="submitted && form.get('imageUrl')?.invalid">Please input a valid image url</mat-error>
-      </mat-form-field>
-    </div>
-    <div class="input-container">
-      <mat-form-field appearance="outline">
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email" placeholder="Enter your email">
-        <mat-error *ngIf="submitted && form.get('email')?.invalid">Please input a valid email</mat-error>
-      </mat-form-field>
-    </div>
-    <div class="input-container">
-      <mat-form-field class="custom-form-field" appearance="outline">
-        <mat-label>Password</mat-label>
-        <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" placeholder="Enter your password">
-        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
-        <mat-hint>*Password min. length: 8</mat-hint>
-        <mat-error *ngIf="submitted && form.get('password')?.invalid">Please input a valid password</mat-error>
-      </mat-form-field>
-    </div>
+<form [formGroup]="form" (ngSubmit)="onRegister()">
+  <h2>Register your account!</h2>
+  <div class="input-container">
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" placeholder="Enter your name">
+      <mat-error *ngIf="submitted && form.get('name')?.invalid">Please input a valid name</mat-error>
+    </mat-form-field>
+  </div>
+  <div class="input-container">
+    <mat-form-field appearance="outline">
+      <mat-label>Image Url</mat-label>
+      <input matInput formControlName="imageUrl" placeholder="Enter your image url">
+      <mat-error *ngIf="submitted && form.get('imageUrl')?.invalid">Please input a valid image url</mat-error>
+    </mat-form-field>
+  </div>
+  <div class="input-container">
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" placeholder="Enter your email">
+      <mat-error *ngIf="submitted && form.get('email')?.invalid">Please input a valid email</mat-error>
+    </mat-form-field>
+  </div>
+  <div class="input-container">
+    <mat-form-field class="custom-form-field" appearance="outline">
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" placeholder="Enter your password">
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-hint>*Password min. length: 8</mat-hint>
+      <mat-error *ngIf="submitted && form.get('password')?.invalid">Please input a valid password</mat-error>
+    </mat-form-field>
+  </div>
 
-    <div class="buttons-box">
-      <button mat-raised-button color="primary" type="submit">Register</button>
-      <button mat-button color="primary" type="button" routerLink="/auth/login">Login existing account</button>
-    </div>
-  </form>
-</div>
+  <div class="buttons-box registration-position">
+    <ng-container *ngIf="authStore.state$ | async as state">
+      <p class="error" *ngIf="state.registrationError">
+        {{state.registrationError}}
+      </p>
+    <button mat-raised-button color="primary" type="submit" class="registration-button" [disabled]="state.authenticating">
+      Register
+    </button>
+    <button mat-button color="primary" type="button" routerLink="/auth/login"
+            [disabled]="state.authenticating"
+            (click)="authStore.setInitialState()">
+      Login existing account
+    </button>
+    </ng-container>
+  </div>
+</form>

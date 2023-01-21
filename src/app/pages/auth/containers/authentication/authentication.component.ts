@@ -18,7 +18,7 @@ import {AuthStore} from "../../../../core/services/auth.store";
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
-    RouterModule
+    RouterModule,
   ],
   templateUrl: './authentication.component.html',
   styleUrls: ['./authentication.component.scss'],
@@ -33,7 +33,7 @@ export class AuthenticationComponent implements OnInit {
     password: ['', [Validators.required, Validators.minLength(8)]]
   });
 
-  constructor(private fb: FormBuilder, private authStore: AuthStore) { }
+  constructor(private fb: FormBuilder, public authStore: AuthStore) { }
 
   ngOnInit(): void {
   }
@@ -44,6 +44,7 @@ export class AuthenticationComponent implements OnInit {
       this.form.markAllAsTouched();
       return;
     } else {
+      console.log('here');
       this.authStore.login(this.form.getRawValue())
     }
 

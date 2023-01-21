@@ -7,31 +7,38 @@ import {Router} from "@angular/router";
 import {UserRegistrationModel} from "../../pages/auth/models/user-registration.model";
 
 export interface UserModel {
-  id: number;
-  name: string;
-  email: string;
-  role: string;
-  token: string;
+  id: number | null;
+  name: string | null;
+  email: string | null;
+  role: string | null;
+  token?: string | null;
+  imageUrl?: string | null;
 }
 
 export interface AuthState {
   user: UserModel | null,
+  token: string | null;
   authenticating: boolean;
   authenticated: boolean;
-  error: string | null;
+  loginError: string | null;
+  registrationError: string | null;
 }
 
 export const initialState: AuthState = {
   user: null,
+  token: null,
   authenticating: false,
   authenticated: false,
-  error: null
+  loginError: null,
+  registrationError: null
 }
 
 @Injectable({
   providedIn: "root"
 })
 export class AuthStore extends ComponentStore<AuthState> {
+
+  token$ = this.select((state) => state.token)
 
   constructor(private authService: AuthService, private router: Router) {
     super(initialState);
@@ -43,13 +50,22 @@ export class AuthStore extends ComponentStore<AuthState> {
     return this.get(s => s);
   }
 
+  setInitialState = () => this.setState(initialState);
+
+  setNewState = (data: AuthState) => this.patchState(data);
+
+  setToken = (token: string) => this.patchState({
+    token: token
+  });
+
   login = this.effect((credentials$: Observable<UserCredentials>) =>
     credentials$.pipe(
-      tap(() => this.setState({
+      tap(() => this.patchState({
         user: null,
+        token: null,
         authenticating: true,
         authenticated: false,
-        error: null,
+        loginError: null,
       })),
       switchMap((credentials) =>
         this.authService.login(credentials).pipe(
@@ -57,19 +73,21 @@ export class AuthStore extends ComponentStore<AuthState> {
             console.log(res);
             this.patchState({
               user: res,
+              token: res.token,
               authenticating: false,
               authenticated: true,
-              error: null,
+              loginError: null,
             });
-            localStorage.setItem('token', res.token)
-            this.router.navigateByUrl('home');
+            if(res.token) localStorage.setItem('token', res.token)
+            this.router.navigateByUrl('home').then();
           }),
           catchError((err) => {
             this.patchState({
               user: null,
+              token: null,
               authenticating: false,
               authenticated: false,
-              error: null,
+              loginError: err.error,
             });
             return EMPTY;
           })
@@ -80,30 +98,33 @@ export class AuthStore extends ComponentStore<AuthState> {
 
   register = this.effect((credentials$: Observable<UserRegistrationModel>) =>
     credentials$.pipe(
-      tap(() => this.setState({
+      tap(() => this.patchState({
         user: null,
+        token: null,
         authenticating: true,
         authenticated: false,
-        error: null,
+        registrationError: null,
       })),
       switchMap((credentials) =>
         this.authService.register(credentials).pipe(
           tap((res) => {
             this.patchState({
               user: res,
+              token: res.token,
               authenticating: false,
               authenticated: true,
-              error: null,
+              registrationError: null,
             });
-            localStorage.setItem('token', res.token)
-            this.router.navigateByUrl('home');
+            if(res.token) localStorage.setItem('token', res.token)
+            this.router.navigateByUrl('home').then();
           }),
           catchError((err) => {
             this.patchState({
               user: null,
+              token: null,
               authenticating: false,
               authenticated: false,
-              error: null,
+              registrationError: err.error,
             });
             return EMPTY;
           })

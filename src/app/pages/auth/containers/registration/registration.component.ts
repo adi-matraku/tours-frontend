@@ -35,7 +35,7 @@ export class RegistrationComponent {
     password: ['', [Validators.required, Validators.minLength(8)]]
   });
 
-  constructor(private fb: FormBuilder, private authStore: AuthStore) {
+  constructor(private fb: FormBuilder, public authStore: AuthStore) {
   }
 
   onRegister() {

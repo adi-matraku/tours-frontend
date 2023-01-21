@@ -1,22 +1,41 @@
 <div class="navigation">
   <div class="navigation-content">
     <a class="heading-link" routerLink="home">Tours</a>
-    <div class="links-list">
-      <ul class="list-items">
-        <li>
-          <a routerLinkActive="active" routerLink="home" class="nav-link">Home</a>
-        </li>
-        <li>
-          <a routerLinkActive="active" routerLink="dashboard" class="nav-link">Dashboard</a>
-        </li>
-      </ul>
+    <ng-container *ngIf="authStore.state$ | async as state">
+      <div class="links-list">
+        <ul class="list-items">
+          <li>
+            <a routerLinkActive="active" routerLink="home" class="nav-link">Home</a>
+          </li>
+          <li>
+            <a routerLinkActive="active" routerLink="dashboard" class="nav-link">Dashboard</a>
+          </li>
+        </ul>
 
-      <ul class="list-items">
-        <li>
-          <a routerLinkActive="active" routerLink="auth" class="nav-link">Login</a>
-        </li>
-      </ul>
-    </div>
+        <ul class="list-items">
+          <li *ngIf="!state.authenticated && !state.user">
+            <a routerLinkActive="active" routerLink="auth" class="nav-link">Login</a>
+          </li>
+          <li *ngIf="state.authenticated && state.user">
+            <button mat-button [matMenuTriggerFor]="beforeMenu">{{state.user.name}}</button>
+            <mat-menu class="profile-menu" #beforeMenu="matMenu" xPosition="before">
+              <button mat-menu-item>
+            <span class="flex profile-gap" routerLink="profile">
+              <span class="material-icons">person_outline</span>
+              <span class="title">Profile</span>
+            </span>
+              </button>
+              <button mat-menu-item (click)="onLogout()">
+            <span class="flex profile-gap">
+              <span class="material-icons">logout</span>
+              <span class="title">Logout</span>
+            </span>
+              </button>
+            </mat-menu>
+          </li>
+        </ul>
+      </div>
+    </ng-container>
   </div>
 </div>
 <div class="container">

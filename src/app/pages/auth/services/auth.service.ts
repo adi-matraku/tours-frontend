@@ -5,13 +5,14 @@ import {Observable} from "rxjs";
 import {UserCredentials} from "../models/user-credentials.model";
 import {UserModel} from "../../../core/services/auth.store";
 import {UserRegistrationModel} from "../models/user-registration.model";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   login(credentials: UserCredentials): Observable<UserModel> {
     return this.http.post<UserModel>(`${environment.apiUrl}/Auth/login`, credentials)
@@ -21,10 +22,12 @@ export class AuthService {
     return this.http.post<UserModel>(`${environment.apiUrl}/Auth/register`, data)
   }
 
-  // logout() {
-    // return this.http.post(`${environment.apiUrl}/Auth/logout`)
-    // this.authStore.setState({ user: null, authenticated: false, authenticating: false, error: null });
-    // localStorage.clear();
-    // this.router.navigate(['/auth']);
-  // }
+  getProfile(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/Profile`)
+  }
+
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['/auth/login']);
+  }
 }

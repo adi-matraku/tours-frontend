@@ -22,6 +22,7 @@
   .links-list {
     width: 100%;
     display: flex;
+    align-items: center;
     justify-content: space-between;
   }
 
@@ -42,4 +43,16 @@
     }
   }
 
+}
+
+.profile-gap {
+  gap: .5rem;
+
+  .material-icons {
+    font-size: 18px;
+  }
+
+  .title {
+    font-size: 1.6rem;
+  }
 }
