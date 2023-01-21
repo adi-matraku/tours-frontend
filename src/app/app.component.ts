@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {RouterModule} from "@angular/router";
 import {AuthStore, UserModel} from "./core/services/auth.store";
-import {AuthService} from "./pages/auth/services/auth.service";
 import {take} from "rxjs";
+import {ProfileService} from "./pages/edit-profile/services/profile.service";
 
 @Component({
   standalone: true,
@@ -13,7 +13,7 @@ import {take} from "rxjs";
 export class AppComponent implements OnInit {
   title = 'tours-project-frontend';
 
-  constructor(public authStore: AuthStore, private authService: AuthService) {
+  constructor(public authStore: AuthStore, private profileService: ProfileService) {
   }
 
   ngOnInit() {
@@ -21,10 +21,7 @@ export class AppComponent implements OnInit {
 
     if (token) {
       this.authStore.setToken(token);
-      this.authService
-        .getProfile()
-        .pipe(take(1))
-        .subscribe({
+      this.profileService.getProfile().pipe(take(1)).subscribe({
           next: (me: UserModel) => {
             this.authStore.patchState({
               user: me,
@@ -33,6 +30,7 @@ export class AppComponent implements OnInit {
             });
           },
           error: (err) => {
+            console.log(err);
             this.authStore.patchState({user: null});
             localStorage.removeItem('token');
           },

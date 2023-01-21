@@ -1,5 +1,5 @@
-<form [formGroup]="form" (ngSubmit)="onLogin()" class="form-content">
-  <h2>Welcome back!</h2>
+<form [formGroup]="form" (ngSubmit)="onLogin()">
+  <h2 class="authentication-title">Welcome back!</h2>
   <div class="input-container">
     <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
@@ -11,7 +11,7 @@
     <mat-form-field class="custom-form-field" appearance="outline">
       <mat-label>Password</mat-label>
       <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" placeholder="Enter your password">
-      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+      <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
       <mat-error *ngIf="submitted && form.get('password')?.invalid">Please input a valid password</mat-error>
@@ -28,7 +28,7 @@
         Login
       </button>
       <button mat-button color="primary" type="button" [disabled]="state.authenticating"
-              routerLink="/auth/register" (click)="authStore.setInitialState()">
+              routerLink="/auth/register" (click)="resetState()">
         Create an account
       </button>
     </ng-container>

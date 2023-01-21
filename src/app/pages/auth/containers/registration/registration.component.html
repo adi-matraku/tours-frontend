@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="onRegister()">
-  <h2>Register your account!</h2>
+  <h2 class="authentication-title">Register your account!</h2>
   <div class="input-container">
     <mat-form-field appearance="outline">
       <mat-label>Name</mat-label>
@@ -25,7 +25,7 @@
     <mat-form-field class="custom-form-field" appearance="outline">
       <mat-label>Password</mat-label>
       <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" placeholder="Enter your password">
-      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+      <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
       <mat-hint>*Password min. length: 8</mat-hint>
@@ -43,7 +43,7 @@
     </button>
     <button mat-button color="primary" type="button" routerLink="/auth/login"
             [disabled]="state.authenticating"
-            (click)="authStore.setInitialState()">
+            (click)="resetState()">
       Login existing account
     </button>
     </ng-container>

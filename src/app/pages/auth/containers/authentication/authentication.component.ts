@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
@@ -23,9 +23,8 @@ import {AuthStore} from "../../../../core/services/auth.store";
   templateUrl: './authentication.component.html',
   styleUrls: ['./authentication.component.scss'],
 })
-export class AuthenticationComponent implements OnInit {
+export class AuthenticationComponent {
   hide = true;
-  error!: string;
   submitted: boolean = false;
 
   form = this.fb.nonNullable.group({
@@ -34,9 +33,6 @@ export class AuthenticationComponent implements OnInit {
   });
 
   constructor(private fb: FormBuilder, public authStore: AuthStore) { }
-
-  ngOnInit(): void {
-  }
 
   onLogin() {
     this.submitted = true;
@@ -47,7 +43,10 @@ export class AuthenticationComponent implements OnInit {
       console.log('here');
       this.authStore.login(this.form.getRawValue())
     }
+  }
 
+  resetState() {
+    this.authStore.setInitialState();
   }
 
 }

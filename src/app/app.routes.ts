@@ -3,6 +3,7 @@ import {MainLayoutComponent} from "./layout/main-layout/main-layout.component";
 import {AuthLayoutComponent} from "./layout/auth-layout/auth-layout.component";
 import {NonAuthGuard} from "./core/guards/non-auth.guard";
 import {AuthGuard} from "./core/guards/auth.guard";
+import {PROFILE_ROUTES} from "./pages/edit-profile/profile.routes";
 
 export const appRoutes: Routes = [
   {
@@ -12,7 +13,6 @@ export const appRoutes: Routes = [
     path: 'auth', component: AuthLayoutComponent, children: [
       {
         path: '',
-        canActivate: [NonAuthGuard],
         loadChildren: () =>
           import('./pages/auth/auth.routes').then((m) => m.AUTH_ROUTES)
       },
@@ -23,12 +23,20 @@ export const appRoutes: Routes = [
       {
         path: 'home',
         loadChildren: () =>
-          import('./pages/home/home.routes').then((m) => m.HOME_ROUTES)
+          import('./pages/home/home.routes')
+            .then((m) => m.HOME_ROUTES)
       },
       {
         path: 'dashboard',
         loadChildren: () =>
-          import('./pages/dashboard/dashboard.routes').then((m) => m.DASHBOARD_ROUTES)
+          import('./pages/dashboard/dashboard.routes')
+            .then((m) => m.DASHBOARD_ROUTES)
+      },
+      {
+        path: 'profile',
+        loadChildren: () =>
+          import('./pages/edit-profile/profile.routes')
+            .then((m) => m.PROFILE_ROUTES)
       }
     ]
   },

@@ -39,6 +39,7 @@ export const initialState: AuthState = {
 export class AuthStore extends ComponentStore<AuthState> {
 
   token$ = this.select((state) => state.token)
+  name$ = this.select((state) => state.user)
 
   constructor(private authService: AuthService, private router: Router) {
     super(initialState);

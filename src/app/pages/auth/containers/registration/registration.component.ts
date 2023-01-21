@@ -7,6 +7,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {RouterModule} from "@angular/router";
 import {AuthStore} from "../../../../core/services/auth.store";
+import {UserRegistrationModel} from "../../models/user-registration.model";
 
 @Component({
   selector: 'app-registration',
@@ -25,7 +26,6 @@ import {AuthStore} from "../../../../core/services/auth.store";
 })
 export class RegistrationComponent {
   hide = true;
-  error!: string;
   submitted: boolean = false;
 
   form = this.fb.nonNullable.group({
@@ -44,11 +44,15 @@ export class RegistrationComponent {
       this.form.markAllAsTouched();
       return;
     } else {
-      const userData = {
+      const userData: UserRegistrationModel = {
         ...this.form.getRawValue(),
         createdAt: new Date().toISOString()
       }
       this.authStore.register(userData)
     }
+  }
+
+  resetState() {
+    this.authStore.setInitialState();
   }
 }

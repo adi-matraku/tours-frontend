@@ -3,7 +3,7 @@
   grid-template-columns: 1fr 1fr;
   height: 100%;
 
-  @media (max-width: 750px) {
+  @media (max-width: 46.875em) {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
   }
@@ -15,9 +15,6 @@
 
   .form-container {
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 
     .button-home {
       position: absolute;
@@ -25,13 +22,13 @@
       left: 0;
       margin: 1rem;
     }
-  }
-}
-.page-content {
-  //background-color: blue;
-  width: 50%;
 
-  @media (max-width: 550px) {
-    width: 75%;
+    .page-content {
+      width: 50%;
+
+      @media (max-width: 34.375em) {
+        width: 75%;
+      }
+    }
   }
 }

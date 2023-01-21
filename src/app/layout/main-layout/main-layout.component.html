@@ -19,17 +19,17 @@
           <li *ngIf="state.authenticated && state.user">
             <button mat-button [matMenuTriggerFor]="beforeMenu">{{state.user.name}}</button>
             <mat-menu class="profile-menu" #beforeMenu="matMenu" xPosition="before">
-              <button mat-menu-item>
-            <span class="flex profile-gap" routerLink="profile">
-              <span class="material-icons">person_outline</span>
-              <span class="title">Profile</span>
-            </span>
+              <button mat-menu-item routerLink="profile">
+                <span class="flex profile-gap">
+                  <span class="material-icons">person_outline</span>
+                  <span class="title">Profile</span>
+                </span>
               </button>
               <button mat-menu-item (click)="onLogout()">
-            <span class="flex profile-gap">
-              <span class="material-icons">logout</span>
-              <span class="title">Logout</span>
-            </span>
+                <span class="flex profile-gap">
+                  <span class="material-icons">logout</span>
+                  <span class="title">Logout</span>
+                </span>
               </button>
             </mat-menu>
           </li>
@@ -38,6 +38,6 @@
     </ng-container>
   </div>
 </div>
-<div class="container">
+<div>
   <router-outlet></router-outlet>
 </div>

@@ -22,12 +22,8 @@ export class AuthService {
     return this.http.post<UserModel>(`${environment.apiUrl}/Auth/register`, data)
   }
 
-  getProfile(): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/Profile`)
-  }
-
   logout() {
     localStorage.clear();
-    this.router.navigate(['/auth/login']);
+    this.router.navigateByUrl('auth/login').then();
   }
 }
