@@ -46,7 +46,7 @@ export const initialState: PackagesState = {
     name: null,
     userId: null,
     pageNumber: 1,
-    pageSize: 10,
+    pageSize: 5,
   },
   loading: false,
   loaded: false,

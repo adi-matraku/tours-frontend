@@ -1,7 +1,13 @@
-<ng-container *ngIf="store.state$ | async as state">
-  <app-packages
-  [data]="state.data"
-  [total]="state.total"
-  >
-  </app-packages>
-</ng-container>
+<div class="pages-container">
+  <ng-container *ngIf="store.state$ | async as state">
+    <app-packages
+      [data]="state.data"
+      [total]="state.total"
+      [loading]="state.loading"
+      [loaded]="state.loaded"
+      (filterChanged)="onFilter($event)"
+      (paginationChanged)="paginate($event)"
+    >
+    </app-packages>
+  </ng-container>
+</div>

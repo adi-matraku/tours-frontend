@@ -31,12 +31,7 @@ export class AppComponent implements OnInit {
           },
           error: (err) => {
             console.log(err);
-            this.authStore.setNewState({
-              user: null,
-              authenticated: false,
-              authenticating: false,
-              loginError: err.error
-            });
+            this.authStore.setInitialState();
             localStorage.removeItem('token');
           },
         });
