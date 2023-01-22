@@ -7,6 +7,11 @@
     align-items: center;
     padding: 2rem 5rem;
 
+    @media (max-width: 550px) {
+      gap: 4rem;
+      padding: 2rem 3rem;
+    }
+
     .heading-link {
       text-decoration: none;
       font-size: 2rem;

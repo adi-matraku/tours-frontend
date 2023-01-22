@@ -17,7 +17,10 @@
     </mat-form-field>
   </div>
 
-  <div class="button-box">
-    <button mat-raised-button color="primary" type="submit">Submit</button>
+  <div class="forms-button-box">
+    <button mat-raised-button color="primary" type="submit" [disabled]="loading">
+      <mat-icon>save</mat-icon>
+      Save
+    </button>
   </div>
 </form>

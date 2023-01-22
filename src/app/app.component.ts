@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
       this.authStore.setToken(token);
       this.profileService.getProfile().pipe(take(1)).subscribe({
           next: (me: UserModel) => {
-            this.authStore.patchState({
+            this.authStore.setNewState({
               user: me,
               authenticated: true,
               authenticating: false,
@@ -31,7 +31,12 @@ export class AppComponent implements OnInit {
           },
           error: (err) => {
             console.log(err);
-            this.authStore.patchState({user: null});
+            this.authStore.setNewState({
+              user: null,
+              authenticated: false,
+              authenticating: false,
+              loginError: err.error
+            });
             localStorage.removeItem('token');
           },
         });

@@ -53,11 +53,9 @@ export class AuthStore extends ComponentStore<AuthState> {
 
   setInitialState = () => this.setState(initialState);
 
-  setNewState = (data: AuthState) => this.patchState(data);
+  setNewState = (data: Partial<AuthState>) => this.patchState(data);
 
-  setToken = (token: string) => this.patchState({
-    token: token
-  });
+  setToken = (token: string) => this.patchState({token: token});
 
   login = this.effect((credentials$: Observable<UserCredentials>) =>
     credentials$.pipe(

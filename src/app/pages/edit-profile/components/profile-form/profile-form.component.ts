@@ -6,9 +6,8 @@ import {MatInputModule} from "@angular/material/input";
 import {UserModel} from "../../../../core/services/auth.store";
 import {MatButtonModule} from "@angular/material/button";
 import {ProfileService} from "../../services/profile.service";
-import {take} from "rxjs";
-import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 import {UserUpdateModel} from "../../models/user-update.model";
+import {MatIconModule} from "@angular/material/icon";
 
 @Component({
   selector: 'app-profile-form',
@@ -19,16 +18,16 @@ import {UserUpdateModel} from "../../models/user-update.model";
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatIconModule
   ],
   templateUrl: './profile-form.component.html',
   styleUrls: ['./profile-form.component.scss']
 })
 export class ProfileFormComponent {
   submitted: boolean = false;
-  loading: boolean = false;
   userDetails!: UserModel;
 
-  @Output() submittedForm = new EventEmitter<UserUpdateModel>();
+  @Input() loading!: boolean;
 
   @Input() set formValue(data: UserModel) {
     this.userDetails = data;
@@ -38,6 +37,8 @@ export class ProfileFormComponent {
       imageUrl: data.imageUrl!,
     })
   }
+
+  @Output() submittedForm = new EventEmitter<UserUpdateModel>();
 
   form = this.fb.nonNullable.group({
     name: ['', [Validators.required, Validators.minLength(3)]],

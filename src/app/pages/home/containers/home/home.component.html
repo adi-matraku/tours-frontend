@@ -1,1 +1,7 @@
-<p>home works!</p>
+<ng-container *ngIf="store.state$ | async as state">
+  <app-packages
+  [data]="state.data"
+  [total]="state.total"
+  >
+  </app-packages>
+</ng-container>

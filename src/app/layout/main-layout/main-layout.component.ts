@@ -16,13 +16,6 @@ import {tap} from "rxjs";
 })
 export class MainLayoutComponent {
 
-  nameChanges$ = this.authStore.name$.pipe(
-    tap((name) => {
-        console.log(name, 'NAMEEEEEE');
-      }
-    )
-  );
-
   constructor(public authStore: AuthStore, private authService: AuthService) { }
 
   onLogout() {
