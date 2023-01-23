@@ -3,9 +3,9 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../../environments/environment";
 import {Observable} from "rxjs";
 import {UserCredentials} from "../models/user-credentials.model";
-import {UserModel} from "../../../core/services/auth.store";
 import {UserRegistrationModel} from "../models/user-registration.model";
 import {Router} from "@angular/router";
+import {UserModel} from "../../../core/services/auth.store";
 
 @Injectable({
   providedIn: 'root'

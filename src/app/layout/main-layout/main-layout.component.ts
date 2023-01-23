@@ -5,12 +5,12 @@ import {AuthStore} from "../../core/services/auth.store";
 import {AuthService} from "../../pages/auth/services/auth.service";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatButtonModule} from "@angular/material/button";
-import {tap} from "rxjs";
+import {RoleDirective} from "../../shared/directives/role.directive";
 
 @Component({
   selector: 'app-main-layout',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatButtonModule, MatMenuModule],
+  imports: [CommonModule, RouterModule, MatButtonModule, MatMenuModule, RoleDirective],
   templateUrl: './main-layout.component.html',
   styleUrls: ['./main-layout.component.scss']
 })

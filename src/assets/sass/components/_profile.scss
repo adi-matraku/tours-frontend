@@ -1,0 +1,14 @@
+.page-details {
+  max-width: 55rem;
+  margin: 5rem auto;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: 2rem;
+  border-radius: 5px;
+
+  &-header {
+    font-size: 1.8rem;
+    padding: 2rem 4rem;
+    color: #1c1b1b;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+}

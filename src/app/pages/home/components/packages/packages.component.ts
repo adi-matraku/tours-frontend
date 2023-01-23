@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {PackageDataModel, Pagination} from "../../services/packages.store";
+import {PackageDataModel} from "../../services/packages.store";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatButtonModule} from "@angular/material/button";
@@ -26,18 +26,19 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
     ReactiveFormsModule
   ],
   templateUrl: './packages.component.html',
-  styleUrls: ['./packages.component.scss']
+  styleUrls: ['./packages.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PackagesComponent {
 
-  search = new FormControl('')
+  search = new FormControl(null)
 
   @Input() data!: PackageDataModel[];
   @Input() loading!: boolean;
   @Input() loaded!: boolean;
   @Input() total!: number;
+  @Input() error!: string | null;
 
   @Output() paginationChanged = new EventEmitter<PagesPagination>();
   @Output() filterChanged = new EventEmitter<string | null>();
-
 }

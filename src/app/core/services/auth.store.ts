@@ -39,7 +39,8 @@ export const initialState: AuthState = {
 export class AuthStore extends ComponentStore<AuthState> {
 
   token$ = this.select((state) => state.token)
-  name$ = this.select((state) => state.user)
+  user$ = this.select((state) => state.user)
+  role$ = this.select((state) => state.user)
 
   constructor(private authService: AuthService, private router: Router) {
     super(initialState);
@@ -69,7 +70,6 @@ export class AuthStore extends ComponentStore<AuthState> {
       switchMap((credentials) =>
         this.authService.login(credentials).pipe(
           tap((res) => {
-            console.log(res);
             this.patchState({
               user: res,
               token: res.token,

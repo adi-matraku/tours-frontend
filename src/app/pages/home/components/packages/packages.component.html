@@ -1,4 +1,4 @@
-<ng-container *ngIf="!loading && loaded; else loadingPackages">
+<ng-container *ngIf="!loading && loaded && !error; else loadingPackages">
   <div class="forms-box">
     <mat-form-field appearance="outline">
       <mat-label>Search for a package</mat-label>
@@ -7,7 +7,7 @@
     <button mat-raised-button
             color="primary"
             type="button"
-            class="search-button"
+            class="ml-2"
             (click)="filterChanged.emit(search.getRawValue())"
     >
       <mat-icon>search</mat-icon>
@@ -15,7 +15,7 @@
     </button>
     <button mat-raised-button
             type="button"
-            class="search-button"
+            class="ml-2"
             (click)="search.reset(); filterChanged.emit(search.getRawValue())"
     >
       Reset
@@ -39,6 +39,16 @@
   </div>
 </ng-container>
 
+<div class="flex" *ngIf="error">
+  <p class="error">{{error}}</p>
+</div>
+
+<ng-template #loadingPackages>
+  <div class="flex" *ngIf="!error">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>
+
 <div class="pagination-box">
   <mat-paginator
     [length]="total"
@@ -48,9 +58,3 @@
     aria-label="Select page">
   </mat-paginator>
 </div>
-
-<ng-template #loadingPackages>
-  <div class="flex">
-    <mat-spinner></mat-spinner>
-  </div>
-</ng-template>

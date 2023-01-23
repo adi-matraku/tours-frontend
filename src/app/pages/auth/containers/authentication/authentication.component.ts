@@ -7,7 +7,6 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatInputModule} from "@angular/material/input";
 import {RouterModule} from "@angular/router";
 import {AuthStore} from "../../../../core/services/auth.store";
-import {ButtonsSpinnerComponent} from "../../../../shared/components/buttons-spinner/buttons-spinner.component";
 
 @Component({
   selector: 'app-authentication',
@@ -40,9 +39,8 @@ export class AuthenticationComponent {
     if(this.form.invalid) {
       this.form.markAllAsTouched();
       return;
-    } else {
-      this.authStore.login(this.form.getRawValue())
     }
+    this.authStore.login(this.form.getRawValue())
   }
 
   resetState() {

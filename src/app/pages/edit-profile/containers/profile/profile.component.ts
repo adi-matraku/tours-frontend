@@ -8,7 +8,6 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {UserUpdateModel} from "../../models/user-update.model";
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
-import {ButtonsSpinnerComponent} from "../../../../shared/components/buttons-spinner/buttons-spinner.component";
 
 @Component({
   selector: 'app-profile',
@@ -37,27 +36,39 @@ export class ProfileComponent {
 
   onEdit(data: UserUpdateModel) {
     this.loadingButton = true;
+    console.log('here');
+    // this.profileService.updateProfile(data).pipe(
+    //   take(1),
+    //   concatMap(res => {
+    //     return this.profileService.getProfile().pipe(take(1),
+    //     tap((res)=>{
+    //       console.log(res);
+    //       this.loadingButton = false;
+    //       this.authStore.setNewState({user: res});
+    //       this.router.navigateByUrl('/home').then();
+    //     })
+    //     )
+    //   })
+    // )
     this.profileService.updateProfile(data).pipe(take(1)).subscribe({
       next: res => {
         this.profileService.getProfile().pipe(take(1)).subscribe({
           next: user => {
             this.loadingButton = false;
-            this.authStore.patchState({
-              user: user,
-            });
+            this.authStore.setNewState({user: user});
             this.openSnackBar('Edited Successfully');
             this.router.navigateByUrl('/home').then();
           },
           error: err => {
-            this.loadingButton = false;
             console.log(err);
+            this.loadingButton = false;
             this.openSnackBar(err.error);
           }
         });
       },
       error: err => {
-        this.loadingButton = false;
         console.log(err);
+        this.loadingButton = false;
         this.openSnackBar(err.error);
       }
     })
