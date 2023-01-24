@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {PackageDataModel, PackageParams} from "../../services/packages.store";
+import {PackageParams} from "../../services/packages.store";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatButtonModule} from "@angular/material/button";
@@ -10,6 +10,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatCardModule} from "@angular/material/card";
 import {PagesPagination} from "../../models/pages-pagination.model";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
+import {PackageDataModel} from "../../../../shared/models/package-data.model";
 
 @Component({
   selector: 'app-packages',

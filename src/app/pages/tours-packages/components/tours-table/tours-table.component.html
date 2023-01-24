@@ -1,4 +1,4 @@
-<div class="mat-elevation-z8" *ngIf="dataSource && !loading">
+<div class="mat-elevation-z8" *ngIf="dataSource && !loading && !error">
   <table mat-table [dataSource]="dataSource">
 
     <ng-container matColumnDef="id">
@@ -19,8 +19,8 @@
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef> Action </th>
       <td mat-cell *matCellDef="let element">
-        <div class="gap-sm">
-          <button mat-raised-button color="accent">Edit</button>
+        <div class="flex-row gap-sm">
+          <button mat-raised-button color="accent" type="button" (click)="onEdit(element)">Edit</button>
           <button mat-raised-button color="warn">Delete</button>
         </div>
       </td>
@@ -32,15 +32,13 @@
 
   <mat-paginator
     [length]="total"
-    [pageIndex]="1"
+    [pageIndex]="pageNumber - 1"
+    [pageSize]="pageSize"
     [pageSizeOptions]="[10, 20, 50]"
     [showFirstLastButtons]="true"
     [hidePageSize]="true"
-    (page)="onPageChange($event)"
+    (page)="paginated.emit($event)"
   ></mat-paginator>
-</div>
-<div *ngIf="dataSource.length === 0 && !loading && loaded">
-  <p class="flex">No data.</p>
 </div>
 <div *ngIf="!loading && !loaded && error">
   <p class="flex error"> ERROR: {{error}}</p>

@@ -1,18 +1,48 @@
 <div class="pages-container">
-  <div class="actions-box">
-    <button mat-raised-button color="primary">
-      <mat-icon>add</mat-icon>
-      Create Package
-    </button>
+  <div class="flex-row justify-between">
+    <div class="search-box">
+      <mat-form-field appearance="outline">
+        <mat-label>Search for a package</mat-label>
+        <input matInput placeholder="Placeholder" [formControl]="search">
+      </mat-form-field>
+      <button mat-raised-button
+              color="primary"
+              type="button"
+              class="ml-2"
+              (click)="onSearch()"
+      >
+        <mat-icon>search</mat-icon>
+        Search
+      </button>
+
+      <button mat-raised-button
+              type="button"
+              class="ml-2"
+              (click)="onReset()"
+      >
+        Reset
+      </button>
+    </div>
+
+    <div class="creation-box">
+      <button mat-raised-button color="primary" type="button" (click)="onCreate()">
+        <mat-icon>add</mat-icon>
+        Create Package
+      </button>
+    </div>
   </div>
 
   <ng-container *ngIf="store.state$ | async as state">
     <app-tours-table
       [dataSource]="state.data"
       [total]="state.total"
+      [pageSize]="state.params.pageSize"
+      [pageNumber]="state.params.pageNumber"
       [loading]="state.loading"
       [loaded]="state.loaded"
       [error]="state.error"
+      (paginated)="onPaginate($event)"
+      (loadState)="onLoadState()"
     >
     </app-tours-table>
   </ng-container>

@@ -1,42 +1,36 @@
 import {ComponentStore} from "@ngrx/component-store";
-import {UserModel} from "../../../core/services/auth.store";
 import {Injectable} from "@angular/core";
 import {catchError, EMPTY, Observable, switchMap, tap} from "rxjs";
-import {PackagesService} from "./packages.service";
+import {ToursService} from "./tours.service";
 import {Pagination} from "../../../shared/models/pagination.model";
-
-export interface PackageDataModel {
-  id: number;
-  name: string;
-  user: UserModel;
-}
+import {PackageDataModel} from "../../../shared/models/package-data.model";
 
 export interface PackageResponseModel {
   data: PackageDataModel[];
   pagination: Pagination;
 }
 
-export interface PackageParams {
+export interface ToursParams {
   name: string | null;
   pageNumber: number;
   pageSize: number;
 }
 
-export interface PackagesState {
+export interface ToursState {
   data: PackageDataModel[];
-  params: PackageParams;
+  params: ToursParams;
   loading: boolean;
   loaded: boolean;
   error: string | null;
   total: number;
 }
 
-export const initialState: PackagesState = {
+export const initialState: ToursState = {
   data: [],
   params: {
     name: null,
     pageNumber: 1,
-    pageSize: 5,
+    pageSize: 10,
   },
   loading: false,
   loaded: false,
@@ -45,8 +39,8 @@ export const initialState: PackagesState = {
 }
 
 @Injectable()
-export class PackagesStore extends ComponentStore<PackagesState> {
-  constructor(private packageService: PackagesService) {
+export class ToursStore extends ComponentStore<ToursState> {
+  constructor(private toursService: ToursService) {
     super(initialState);
 
     this.state$.subscribe(console.log)
@@ -56,12 +50,12 @@ export class PackagesStore extends ComponentStore<PackagesState> {
     return this.get(s => s.params);
   }
 
-  load = this.effect((params$: Observable<Partial<PackageParams>>) => params$
+  load = this.effect((params$: Observable<Partial<ToursParams>>) => params$
     .pipe(tap(() => this.patchState({ loading: true, loaded: false, error: null })),
       switchMap(params => {
         const currentParams = this.params;
         const newParams = { ...currentParams, ...params };
-        return this.packageService.getPackages(newParams).pipe(tap((response: PackageResponseModel) =>
+        return this.toursService.getTours(newParams).pipe(tap((response: PackageResponseModel) =>
             this.patchState(
               {
                 data: response.data,

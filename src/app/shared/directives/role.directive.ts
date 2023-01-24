@@ -17,6 +17,8 @@ export class RoleDirective {
       take(1),
       pluck('role'),
       map(role => {
+        console.log(role);
+        console.log(this.appRole);
         if (this.appRole.includes(role)) {
           return true;
         }
