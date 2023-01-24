@@ -33,7 +33,7 @@
     </mat-form-field>
   </div>
 
-  <div class="buttons-box registration-position">
+  <div class="buttons-box">
     <ng-container *ngIf="authStore.state$ | async as state">
       <p class="error" *ngIf="state.registrationError">
         {{state.registrationError}}

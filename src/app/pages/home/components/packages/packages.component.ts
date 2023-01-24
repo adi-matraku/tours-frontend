@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {PackageDataModel} from "../../services/packages.store";
+import {PackageDataModel, PackageParams} from "../../services/packages.store";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatButtonModule} from "@angular/material/button";
@@ -38,6 +38,7 @@ export class PackagesComponent {
   @Input() loaded!: boolean;
   @Input() total!: number;
   @Input() error!: string | null;
+  @Input() params!: PackageParams;
 
   @Output() paginationChanged = new EventEmitter<PagesPagination>();
   @Output() filterChanged = new EventEmitter<string | null>();

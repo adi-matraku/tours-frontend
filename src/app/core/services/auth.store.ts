@@ -7,12 +7,12 @@ import {Router} from "@angular/router";
 import {UserRegistrationModel} from "../../pages/auth/models/user-registration.model";
 
 export interface UserModel {
-  id: number | null;
-  name: string | null;
-  email: string | null;
-  role: string | null;
-  token?: string | null;
-  imageUrl?: string | null;
+  id: number;
+  name: string;
+  email: string;
+  role: string;
+  token?: string;
+  imageUrl?: string;
 }
 
 export interface AuthState {

@@ -24,12 +24,6 @@ export const appRoutes: Routes = [
             .then((m) => m.HOME_ROUTES)
       },
       {
-        path: 'dashboard',
-        loadChildren: () =>
-          import('./pages/dashboard/dashboard.routes')
-            .then((m) => m.DASHBOARD_ROUTES)
-      },
-      {
         path: 'profile',
         loadChildren: () =>
           import('./pages/edit-profile/profile.routes')
@@ -40,7 +34,13 @@ export const appRoutes: Routes = [
         loadChildren: () =>
           import('./pages/favorites/favorites.routes')
             .then((m) => m.FAVORITE_ROUTES)
-      }
+      },
+      {
+        path: 'tours-packages',
+        loadChildren: () =>
+          import('./pages/tours-packages/tours.routes')
+            .then((m) => m.TOURS_ROUTES)
+      },
     ]
   },
   {path: '**', redirectTo: 'home'}

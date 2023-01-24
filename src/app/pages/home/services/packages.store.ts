@@ -58,6 +58,8 @@ export const initialState: PackagesState = {
 export class PackagesStore extends ComponentStore<PackagesState> {
   constructor(private packageService: PackagesService) {
     super(initialState);
+
+    this.state$.subscribe(console.log)
   }
 
   get params() {

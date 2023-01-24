@@ -53,7 +53,7 @@
   <mat-paginator
     [length]="total"
     (page)="paginationChanged.emit($event)"
-    [pageSize]="5"
+    [pageSize]="params.pageSize"
     [pageSizeOptions]="[5, 10, 25, 50]"
     aria-label="Select page">
   </mat-paginator>

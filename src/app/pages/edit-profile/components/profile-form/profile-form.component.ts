@@ -32,9 +32,9 @@ export class ProfileFormComponent {
   @Input() set formValue(data: UserModel) {
     this.userDetails = data;
     this.form.patchValue({
-      name: data.name!,
-      email: data.email!,
-      imageUrl: data.imageUrl!,
+      name: data.name,
+      email: data.email,
+      imageUrl: data.imageUrl,
     })
   }
 
@@ -46,7 +46,7 @@ export class ProfileFormComponent {
     imageUrl: ['', Validators.required]
   })
 
-  constructor(private fb: FormBuilder, private profileService: ProfileService) {
+  constructor(private fb: FormBuilder) {
   }
 
   onSubmit() {
@@ -54,12 +54,11 @@ export class ProfileFormComponent {
     if(this.form.invalid) {
       this.form.markAllAsTouched();
       return;
-    } else {
-      const data = {
-        id: this.userDetails.id!,
-        ...this.form.getRawValue()
-      }
-      this.submittedForm.emit(data);
     }
+    const data = {
+      id: this.userDetails.id,
+      ...this.form.getRawValue()
+    }
+    this.submittedForm.emit(data);
   }
 }

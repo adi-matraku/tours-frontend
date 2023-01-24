@@ -22,3 +22,12 @@ body {
   overflow-x: hidden;
   letter-spacing: 1px;
 }
+
+.pages-container {
+  max-width: 120rem;
+  margin: 2rem auto;
+  padding: 2rem 4rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  height: 100%;
+}

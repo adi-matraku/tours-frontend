@@ -8,7 +8,7 @@ import {ProfileService} from "./pages/edit-profile/services/profile.service";
   standalone: true,
   selector: 'app-root',
   imports: [RouterModule],
-  template: `<router-outlet></router-outlet>`
+  template: `<router-outlet></router-outlet>`,
 })
 export class AppComponent implements OnInit {
   title = 'tours-project-frontend';
