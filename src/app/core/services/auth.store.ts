@@ -57,6 +57,8 @@ export class AuthStore extends ComponentStore<AuthState> {
 
   setToken = (token: string) => this.patchState({token: token});
 
+  setUser = (user: UserModel) => this.patchState({user: user});
+
   login = this.effect((credentials$: Observable<UserCredentials>) =>
     credentials$.pipe(
       tap(() => this.patchState({
@@ -76,6 +78,7 @@ export class AuthStore extends ComponentStore<AuthState> {
               authenticated: true,
               loginError: null,
             });
+            localStorage.setItem('user', JSON.stringify(res))
             if(res.token) localStorage.setItem('token', res.token)
             this.router.navigateByUrl('home').then();
           }),
@@ -113,6 +116,7 @@ export class AuthStore extends ComponentStore<AuthState> {
               authenticated: true,
               registrationError: null,
             });
+            localStorage.setItem('user', JSON.stringify(res))
             if(res.token) localStorage.setItem('token', res.token)
             this.router.navigateByUrl('home').then();
           }),

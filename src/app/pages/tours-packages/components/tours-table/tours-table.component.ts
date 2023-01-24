@@ -9,19 +9,25 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import {take} from "rxjs";
 import {ToursDialogComponent} from "../tours-dialog/tours-dialog.component";
-import {DeleteDialogComponent} from "../../../../shared/components/delete-dialog/delete-dialog.component";
+import {ToursDeleteDialogComponent} from "../tours-delete-dialog/tours-delete-dialog.component";
 
 @Component({
   selector: 'app-tours-table',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatPaginatorModule, MatProgressSpinnerModule, MatButtonModule, MatDialogModule],
+  imports: [
+    CommonModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    MatButtonModule,
+    MatDialogModule
+  ],
   templateUrl: './tours-table.component.html',
   styleUrls: ['./tours-table.component.scss']
 })
 export class ToursTableComponent {
 
-  constructor(private dialog: MatDialog) {
-  }
+  constructor(private dialog: MatDialog) {}
 
   displayedColumns: string[] = ['id', 'name', 'user', 'action'];
   @Input() dataSource!: PackageDataModel[];
@@ -38,8 +44,6 @@ export class ToursTableComponent {
     const dialogRef = this.dialog.open(ToursDialogComponent, {
       disableClose: true,
       data: data,
-      width: '30rem',
-      height: '25rem'
     })
 
     dialogRef.afterClosed().pipe(take(1)).subscribe({
@@ -52,16 +56,15 @@ export class ToursTableComponent {
   }
 
   onDelete(data: string) {
-    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+    const dialogRef = this.dialog.open(ToursDeleteDialogComponent, {
       disableClose: true,
       autoFocus: false,
       data: data,
-      width: '30rem',
-      height: '20rem'
     })
 
     dialogRef.afterClosed().pipe(take(1)).subscribe({
       next: res => {
+        console.log(res);
         if(res) {
           this.loadState.emit();
         }

@@ -2,7 +2,7 @@
   <div class="forms-box">
     <mat-form-field appearance="outline">
       <mat-label>Search for a package</mat-label>
-      <input matInput placeholder="Placeholder" [formControl]="search">
+      <input matInput placeholder="Package" [formControl]="search">
     </mat-form-field>
     <button mat-raised-button
             color="primary"
@@ -54,6 +54,7 @@
     [length]="total"
     (page)="paginationChanged.emit($event)"
     [pageSize]="params.pageSize"
+    [pageIndex]="params.pageNumber - 1"
     [pageSizeOptions]="[5, 10, 25, 50]"
     aria-label="Select page">
   </mat-paginator>

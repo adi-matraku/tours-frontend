@@ -41,6 +41,12 @@ export const appRoutes: Routes = [
           import('./pages/tours-packages/tours.routes')
             .then((m) => m.TOURS_ROUTES)
       },
+      {
+        path: 'users',
+        loadChildren: () =>
+          import('./pages/users/users.routes')
+            .then((m) => m.USERS_ROUTES)
+      },
     ]
   },
   {path: '**', redirectTo: 'home'}

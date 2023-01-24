@@ -45,8 +45,6 @@ export class ToursPackagesComponent implements OnInit{
   onCreate() {
     const dialogRef = this.dialog.open(ToursDialogComponent, {
       disableClose: true,
-      height: '25rem',
-      width: '30rem'
     })
 
     dialogRef.afterClosed().pipe(take(1)).subscribe({

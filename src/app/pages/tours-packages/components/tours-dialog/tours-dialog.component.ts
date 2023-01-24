@@ -11,11 +11,20 @@ import {TourUpdateModel} from "../../models/tour.update.model";
 import {AuthStore} from "../../../../core/services/auth.store";
 import {PackageDataModel} from "../../../../shared/models/package-data.model";
 import {ToursService} from "../../services/tours.service";
+import {MatIconModule} from "@angular/material/icon";
 
 @Component({
   selector: 'app-tours-dialog',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatIconModule
+  ],
   templateUrl: './tours-dialog.component.html',
   styleUrls: ['./tours-dialog.component.scss']
 })
@@ -61,7 +70,6 @@ export class ToursDialogComponent implements OnInit {
   createTour(data: TourCreationModel) {
     this.toursService.postTour(data).pipe(take(1)).subscribe({
       next: res => {
-        this.onLoading = false;
         this.dialogRef.close(true);
       },
       error: err => {
@@ -75,10 +83,10 @@ export class ToursDialogComponent implements OnInit {
   updateTour(data: TourUpdateModel) {
     this.toursService.editTour(data).pipe(take(1)).subscribe({
       next: res => {
-        this.onLoading = false;
         this.dialogRef.close(true);
       },
       error: err => {
+        this.onLoading = false;
         console.log(err);
       }
     });
