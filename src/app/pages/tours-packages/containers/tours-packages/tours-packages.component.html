@@ -1,0 +1,19 @@
+<div class="pages-container">
+  <div class="actions-box">
+    <button mat-raised-button color="primary">
+      <mat-icon>add</mat-icon>
+      Create Package
+    </button>
+  </div>
+
+  <ng-container *ngIf="store.state$ | async as state">
+    <app-tours-table
+      [dataSource]="state.data"
+      [total]="state.total"
+      [loading]="state.loading"
+      [loaded]="state.loaded"
+      [error]="state.error"
+    >
+    </app-tours-table>
+  </ng-container>
+</div>
