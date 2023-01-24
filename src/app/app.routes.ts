@@ -1,9 +1,6 @@
 import {Routes} from "@angular/router";
 import {MainLayoutComponent} from "./layout/main-layout/main-layout.component";
 import {AuthLayoutComponent} from "./layout/auth-layout/auth-layout.component";
-import {NonAuthGuard} from "./core/guards/non-auth.guard";
-import {AuthGuard} from "./core/guards/auth.guard";
-import {PROFILE_ROUTES} from "./pages/edit-profile/profile.routes";
 
 export const appRoutes: Routes = [
   {
@@ -37,6 +34,12 @@ export const appRoutes: Routes = [
         loadChildren: () =>
           import('./pages/edit-profile/profile.routes')
             .then((m) => m.PROFILE_ROUTES)
+      },
+      {
+        path: 'favorites',
+        loadChildren: () =>
+          import('./pages/favorites/favorites.routes')
+            .then((m) => m.FAVORITE_ROUTES)
       }
     ]
   },

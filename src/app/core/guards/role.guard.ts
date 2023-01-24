@@ -12,7 +12,7 @@ export class RoleGuard implements CanActivate {
 
   canActivate(
     route: ActivatedRouteSnapshot,
-    router: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    router: RouterStateSnapshot): Observable<boolean> {
 
     return this.authStore.user$.pipe(
       pluck('role'),

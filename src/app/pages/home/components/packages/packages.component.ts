@@ -41,4 +41,8 @@ export class PackagesComponent {
 
   @Output() paginationChanged = new EventEmitter<PagesPagination>();
   @Output() filterChanged = new EventEmitter<string | null>();
+
+  addToFavorite(card: PackageDataModel) {
+    console.log(card);
+  }
 }

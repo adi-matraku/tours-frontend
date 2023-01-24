@@ -33,6 +33,7 @@
 
   .list-items {
     display: flex;
+    align-items: center;
     gap: 2rem;
     list-style: none;
 
@@ -40,6 +41,7 @@
       font-weight: 500;
       text-decoration: none;
       font-size: 1.3rem;
+      color: #1c1b1b;
     }
 
     .active {

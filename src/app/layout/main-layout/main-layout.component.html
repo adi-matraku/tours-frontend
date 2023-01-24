@@ -13,26 +13,36 @@
         </ul>
 
         <ul class="list-items">
-          <li *ngIf="!state.authenticated && !state.user">
-            <a routerLinkActive="active" routerLink="auth" class="nav-link">Login</a>
-          </li>
-          <li *ngIf="state.authenticated && state.user">
-            <button mat-button [matMenuTriggerFor]="beforeMenu">{{state.user.name}}</button>
-            <mat-menu class="profile-menu" #beforeMenu="matMenu" xPosition="before">
-              <button mat-menu-item routerLink="profile">
+          <ng-container *ngIf="!state.authenticated && !state.user; else authenticated">
+            <li>
+              <a routerLinkActive="active" routerLink="auth" class="nav-link">Login</a>
+            </li>
+          </ng-container>
+          <ng-template #authenticated>
+            <ng-container *ngIf="state.authenticated && state.user">
+              <li>
+                <a routerLinkActive="active" routerLink="favorites" class="nav-link">Favorites</a>
+              </li>
+              <li>
+                <button mat-button [matMenuTriggerFor]="beforeMenu">{{state.user.name}}</button>
+                <mat-menu class="profile-menu" #beforeMenu="matMenu" xPosition="before">
+                  <button mat-menu-item routerLink="profile">
                 <span class="flex profile-gap">
                   <span class="material-icons">person_outline</span>
                   <span class="title">Profile</span>
                 </span>
-              </button>
-              <button mat-menu-item (click)="onLogout()">
+                  </button>
+                  <button mat-menu-item (click)="onLogout()">
                 <span class="flex profile-gap">
                   <span class="material-icons">logout</span>
                   <span class="title">Logout</span>
                 </span>
-              </button>
-            </mat-menu>
-          </li>
+                  </button>
+                </mat-menu>
+              </li>
+            </ng-container>
+          </ng-template>
+
         </ul>
       </div>
     </ng-container>

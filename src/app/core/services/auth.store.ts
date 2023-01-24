@@ -40,7 +40,6 @@ export class AuthStore extends ComponentStore<AuthState> {
 
   token$ = this.select((state) => state.token)
   user$ = this.select((state) => state.user)
-  role$ = this.select((state) => state.user)
 
   constructor(private authService: AuthService, private router: Router) {
     super(initialState);
@@ -131,36 +130,4 @@ export class AuthStore extends ComponentStore<AuthState> {
       )
     )
   )
-
-  // loadFirstCard = this.effect((_$) =>
-  //   _$.pipe(
-  //     switchMap((_) => {
-  //       this.patchState({
-  //         user: null,
-  //         authenticating: true,
-  //         authenticated: false,
-  //         error: null,
-  //       });
-  //       return this.authService.login().pipe(
-  //         tap((res) => {
-  //           this.patchState({
-  //             user: res,
-  //             authenticating: false,
-  //             authenticated: true,
-  //             error: null,
-  //           });
-  //         }),
-  //         catchError((err) => {
-  //           this.patchState({
-  //             user: null,
-  //             authenticating: false,
-  //             authenticated: false,
-  //             error: null,
-  //           });
-  //           return EMPTY;
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
 }
