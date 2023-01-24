@@ -7,9 +7,9 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatButtonModule} from "@angular/material/button";
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
-import {ToursDialogComponent} from "../tours-dialog/tours-dialog/tours-dialog.component";
 import {take} from "rxjs";
-import {ToursService} from "../../services/tours.service";
+import {ToursDialogComponent} from "../tours-dialog/tours-dialog.component";
+import {DeleteDialogComponent} from "../../../../shared/components/delete-dialog/delete-dialog.component";
 
 @Component({
   selector: 'app-tours-table',
@@ -51,12 +51,13 @@ export class ToursTableComponent {
     })
   }
 
-  onDelete(data: PackageDataModel) {
-    const dialogRef = this.dialog.open(ToursDialogComponent, {
+  onDelete(data: string) {
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
       disableClose: true,
+      autoFocus: false,
       data: data,
       width: '30rem',
-      height: '25rem'
+      height: '20rem'
     })
 
     dialogRef.afterClosed().pipe(take(1)).subscribe({

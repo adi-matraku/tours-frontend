@@ -5,12 +5,12 @@ import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
-import {PackageDataModel} from "../../../../../shared/models/package-data.model";
-import {AuthStore} from "../../../../../core/services/auth.store";
-import {ToursService} from "../../../services/tours.service";
-import {TourCreationModel} from "../../../models/tour-creation.model";
 import {take} from "rxjs";
-import {TourUpdateModel} from "../../../models/tour.update.model";
+import {TourCreationModel} from "../../models/tour-creation.model";
+import {TourUpdateModel} from "../../models/tour.update.model";
+import {AuthStore} from "../../../../core/services/auth.store";
+import {PackageDataModel} from "../../../../shared/models/package-data.model";
+import {ToursService} from "../../services/tours.service";
 
 @Component({
   selector: 'app-tours-dialog',

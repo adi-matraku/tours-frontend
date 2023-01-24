@@ -10,9 +10,8 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
-import {ToursDialogComponent} from "../../components/tours-dialog/tours-dialog/tours-dialog.component";
 import {take} from "rxjs";
-import {ToursService} from "../../services/tours.service";
+import {ToursDialogComponent} from "../../components/tours-dialog/tours-dialog.component";
 
 @Component({
   selector: 'app-tours-packages',

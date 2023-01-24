@@ -39,4 +39,8 @@ export class ToursService {
     return this.http.put(`${environment.apiUrl}/Package/${data.id}`, data)
   }
 
+  deleteTour(tour: string) {
+    return this.http.delete(`${environment.apiUrl}/Package/${tour}`)
+  }
+
 }
