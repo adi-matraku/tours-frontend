@@ -1,0 +1,64 @@
+<div class="pages-container">
+  <div class="flex-row justify-between">
+    <div class="search-box">
+      <form [formGroup]="form" (ngSubmit)="onSearch()" class="flex-row">
+        <div class="flex">
+          <mat-form-field appearance="outline">
+            <mat-label>Search for a user</mat-label>
+            <input matInput placeholder="User" formControlName="name">
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="ml-2">
+            <mat-label>Select Role</mat-label>
+            <mat-select formControlName="role">
+              <mat-option [value]="'0'">
+                Admin
+              </mat-option>
+              <mat-option [value]="2">
+                User
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <button mat-raised-button
+                color="primary"
+                type="button"
+                class="ml-2"
+                (click)="onSearch()"
+        >
+          <mat-icon>search</mat-icon>
+          Search
+        </button>
+
+        <button mat-raised-button
+                type="button"
+                class="ml-2"
+                (click)="onReset()"
+        >
+          Reset
+        </button>
+      </form>
+    </div>
+
+    <div class="creation-box">
+      <button mat-raised-button color="primary" type="button" (click)="onCreate()">
+        <mat-icon>add</mat-icon>
+        Create User
+      </button>
+    </div>
+  </div>
+
+  <ng-container *ngIf="store.state$ | async as state">
+    <app-users-table
+      [dataSource]="state.data"
+      [total]="state.total"
+      [pageSize]="state.params.pageSize"
+      [pageNumber]="state.params.pageNumber"
+      [loading]="state.loading"
+      [loaded]="state.loaded"
+      [error]="state.error"
+      (paginated)="onPaginate($event)"
+      (loadState)="onLoadState()"
+    >
+    </app-users-table>
+  </ng-container>
+</div>

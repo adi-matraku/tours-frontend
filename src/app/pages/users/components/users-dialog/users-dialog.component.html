@@ -1,0 +1,54 @@
+<h1 mat-dialog-title>
+  {{data ? 'Edit' : 'Create a User'}}
+</h1>
+<div mat-dialog-content>
+  <div class="mt-2 content">
+    <form [formGroup]="form" class="form-box">
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Name" formControlName="name">
+        <mat-error *ngIf="submitted && form.get('name')?.invalid">Please input a valid name</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="Email" formControlName="email">
+        <mat-error *ngIf="submitted && form.get('email')?.invalid">Please input a valid email</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="custom-form-field" appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" placeholder="Enter your password">
+        <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="submitted && form.get('password')?.invalid">Please input a valid password</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Select Role</mat-label>
+        <mat-select formControlName="role">
+          <mat-option [value]="'0'">
+            Admin
+          </mat-option>
+          <mat-option [value]="2">
+            User
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Image Url</mat-label>
+        <input matInput placeholder="Image url" formControlName="imageUrl">
+        <mat-error *ngIf="submitted && form.get('imageUrl')?.invalid">Please input a valid url</mat-error>
+      </mat-form-field>
+    </form>
+  </div>
+  <div class="mt-2 flex gap-sm">
+    <button mat-button type="button"[mat-dialog-close]="false" [disabled]="onLoading">Cancel</button>
+    <button mat-raised-button color="primary" type="submit" (click)="onSubmit()" [disabled]="onLoading">
+      <mat-icon>save</mat-icon>
+      Save
+    </button>
+  </div>
+</div>
