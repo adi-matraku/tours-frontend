@@ -2,11 +2,11 @@ import {ComponentStore} from "@ngrx/component-store";
 import {UsersService} from "./users.service";
 import {Injectable} from "@angular/core";
 import {catchError, EMPTY, Observable, switchMap, tap} from "rxjs";
-import {UsersModel} from "../models/users.model";
 import {Pagination} from "../../../shared/models/pagination.model";
+import {UserModel} from "../../../shared/models/user.model";
 
 export interface UsersResponseModel {
-  data: UsersModel[];
+  data: UserModel[];
   pagination: Pagination;
 }
 
@@ -18,7 +18,7 @@ export interface UsersParams {
 }
 
 export interface UsersState {
-  data: UsersModel[];
+  data: UserModel[];
   params: UsersParams;
   loading: boolean;
   loaded: boolean;

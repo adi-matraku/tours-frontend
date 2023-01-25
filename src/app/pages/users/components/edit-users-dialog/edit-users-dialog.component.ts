@@ -7,11 +7,11 @@ import {MatIconModule} from "@angular/material/icon";
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
-import {UsersModel} from "../../models/users.model";
 import {UsersService} from "../../services/users.service";
 import {take} from "rxjs";
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 import {UserUpdateModel} from "../../../../shared/models/user-update.model";
+import {UserModel} from "../../../../shared/models/user.model";
 
 @Component({
   selector: 'app-edit-users-dialog',
@@ -42,7 +42,7 @@ export class EditUsersDialogComponent implements OnInit {
   })
 
   constructor(public dialogRef: MatDialogRef<EditUsersDialogComponent>, private fb: FormBuilder, private snackBar: MatSnackBar,
-              @Inject(MAT_DIALOG_DATA) public data: UsersModel, private usersService: UsersService) {
+              @Inject(MAT_DIALOG_DATA) public data: UserModel, private usersService: UsersService) {
   }
 
   ngOnInit() {

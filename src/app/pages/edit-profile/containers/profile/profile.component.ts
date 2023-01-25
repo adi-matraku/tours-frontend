@@ -49,7 +49,7 @@ export class ProfileComponent {
           this.router.navigateByUrl('/home').then();
         }),
           catchError((err => {
-            this.snackBar.open(err.error, 'Error')
+            this.snackBar.open(err.error, 'Error', {duration: 1500})
             return of(null);
           }))
         )

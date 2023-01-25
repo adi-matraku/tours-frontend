@@ -6,10 +6,10 @@ import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatButtonModule} from "@angular/material/button";
-import {UsersModel} from "../../models/users.model";
 import {take} from "rxjs";
 import {EditUsersDialogComponent} from "../edit-users-dialog/edit-users-dialog.component";
 import {UsersDeleteDialogComponent} from "../users-delete-dialog/users-delete-dialog.component";
+import {UserModel} from "../../../../shared/models/user.model";
 
 @Component({
   selector: 'app-users-table',
@@ -31,7 +31,7 @@ export class UsersTableComponent {
 
   displayedColumns: string[] = ['id', 'name', 'email', 'role', 'image', 'action'];
 
-  @Input() dataSource!: UsersModel[];
+  @Input() dataSource!: UserModel[];
   @Input() total!: number;
   @Input() pageSize!: number;
   @Input() pageNumber!: number;
@@ -41,7 +41,7 @@ export class UsersTableComponent {
   @Output() paginated = new EventEmitter<PagesPagination>();
   @Output() loadState = new EventEmitter();
 
-  onEdit(user: UsersModel) {
+  onEdit(user: UserModel) {
     console.log(user);
     const dialogRef = this.dialog.open(EditUsersDialogComponent, {
       disableClose: true,

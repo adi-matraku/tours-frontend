@@ -2,7 +2,6 @@ import {Component, Inject} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
-import {UsersModel} from "../../models/users.model";
 import {UsersService} from "../../services/users.service";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
@@ -12,6 +11,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {take} from "rxjs";
 import {UsersCreationModel} from "../../models/users-creation.model";
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
+import {UserModel} from "../../../../shared/models/user.model";
 
 @Component({
   selector: 'app-users-dialog',
@@ -46,7 +46,7 @@ export class UsersDialogComponent {
   })
 
   constructor(public dialogRef: MatDialogRef<UsersDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: UsersModel,
+              @Inject(MAT_DIALOG_DATA) public data: UserModel,
               private usersService: UsersService, private snackBar: MatSnackBar,
               private fb: FormBuilder
   ) {}
