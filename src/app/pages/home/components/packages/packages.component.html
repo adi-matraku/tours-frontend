@@ -52,7 +52,7 @@
 <div class="pagination-box">
   <mat-paginator
     [length]="total"
-    (page)="paginationChanged.emit($event)"
+    (page)="onPageChange($event)"
     [pageSize]="params.pageSize"
     [pageIndex]="params.pageNumber - 1"
     [pageSizeOptions]="[5, 10, 25, 50]"

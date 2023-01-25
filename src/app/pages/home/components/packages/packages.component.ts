@@ -11,6 +11,7 @@ import {MatCardModule} from "@angular/material/card";
 import {PagesPagination} from "../../models/pages-pagination.model";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {PackageDataModel} from "../../../../shared/models/package-data.model";
+import {PagesFilteringModel} from "../../models/pages-filtering.model";
 
 @Component({
   selector: 'app-packages',
@@ -41,10 +42,14 @@ export class PackagesComponent {
   @Input() error!: string | null;
   @Input() params!: PackageParams;
 
-  @Output() paginationChanged = new EventEmitter<PagesPagination>();
+  @Output() paginationChanged = new EventEmitter<PagesFilteringModel>();
   @Output() filterChanged = new EventEmitter<string | null>();
 
   addToFavorite(card: PackageDataModel) {
     console.log(card);
+  }
+
+  onPageChange(event: PagesPagination) {
+    this.paginationChanged.emit({pagination: event, name: this.search.getRawValue()})
   }
 }

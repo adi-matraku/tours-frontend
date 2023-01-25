@@ -25,7 +25,7 @@ export class ProfileComponent {
 
   loadingButton: boolean = false;
 
-  userProfile$: Observable<UserModel | null> =  this.profileService.getProfile();
+  userProfile$: Observable<UserModel> =  this.profileService.getProfile();
 
   constructor(private authStore: AuthStore,
               private profileService: ProfileService,
@@ -43,17 +43,18 @@ export class ProfileComponent {
         tap((res) => {
           this.loadingButton = false;
           this.authStore.setNewState({user: res});
-          this.openSnackBar('Edited Successfully');
+          localStorage.setItem('user', JSON.stringify(res));
+          this.snackBar.open('Edited successfully', 'Success', {duration: 1500})
           this.router.navigateByUrl('/home').then();
         }),
           catchError((err => {
-            this.openSnackBar(err.error);
+            this.snackBar.open(err.error, 'Error')
             return of(null);
           }))
         )
       }),
       catchError((err => {
-        this.openSnackBar(err.error);
+        this.snackBar.open(err.error, 'Error', {duration: 1500})
         return of(null);
       }))
     ).subscribe((res)=> console.log(res))
@@ -80,13 +81,4 @@ export class ProfileComponent {
     //   }
     // })
   }
-
-  openSnackBar(message: string): void {
-    this.snackBar.open(message, '', {
-      duration: 1500,
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    });
-  }
-
 }

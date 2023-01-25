@@ -2,10 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {PackagesStore} from "../../services/packages.store";
 import {PackagesComponent} from "../../components/packages/packages.component";
-import {PagesPagination} from "../../models/pages-pagination.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {take} from "rxjs";
 import {isEmpty} from "../../utils/checkEmpty.function";
+import {PagesFilteringModel} from "../../models/pages-filtering.model";
 
 @Component({
   selector: 'app-home',
@@ -26,10 +26,10 @@ export class HomeComponent implements OnInit {
         });
   }
 
-  paginate(event: PagesPagination) {
-    this.store.load({ pageNumber: event.pageIndex + 1, pageSize: event.pageSize })
+  paginate(event: PagesFilteringModel) {
+    this.store.load({ pageNumber: event.pagination.pageIndex + 1, pageSize: event.pagination.pageSize, name: event.name })
     this.router.navigate(['/home'],
-      { queryParams: { pageNumber: event.pageIndex + 1, pageSize: event.pageSize } }).then();
+      { queryParams: { name: event.name, pageNumber: event.pagination.pageIndex + 1, pageSize: event.pagination.pageSize } }).then();
   }
 
   onFilter(event: string | null) {

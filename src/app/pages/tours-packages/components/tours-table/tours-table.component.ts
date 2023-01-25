@@ -20,7 +20,7 @@ import {PackageDataModel} from "../../../../shared/models/package-data.model";
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   templateUrl: './tours-table.component.html',
   styleUrls: ['./tours-table.component.scss']

@@ -5,7 +5,6 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {UserModel} from "../../../../core/services/auth.store";
 import {MatButtonModule} from "@angular/material/button";
-import {ProfileService} from "../../services/profile.service";
 import {UserUpdateModel} from "../../models/user-update.model";
 import {MatIconModule} from "@angular/material/icon";
 

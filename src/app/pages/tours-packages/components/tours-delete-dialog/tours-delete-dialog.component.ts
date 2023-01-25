@@ -6,11 +6,12 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {ToursService} from "../../services/tours.service";
 import {take} from "rxjs";
+import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-tours-delete-dialog',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule],
+  imports: [CommonModule, MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatSnackBarModule],
   templateUrl: './tours-delete-dialog.component.html',
   styleUrls: ['./tours-delete-dialog.component.scss']
 })
@@ -20,6 +21,7 @@ export class ToursDeleteDialogComponent {
 
   constructor(public dialogRef: MatDialogRef<ToursDeleteDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: string,
+              private snackBar: MatSnackBar,
               private toursService: ToursService
   ) {}
 
@@ -27,9 +29,11 @@ export class ToursDeleteDialogComponent {
     this.onLoading = true;
     this.toursService.deleteTour(this.data).pipe(take(1)).subscribe({
       next: res => {
+        this.snackBar.open('Deleted successfully', 'Success', {duration: 1500})
         this.dialogRef.close(true);
       },
       error: err => {
+        this.snackBar.open(err.error, 'Error', {duration: 1500})
         console.log(err);
         this.onLoading = false;
       }

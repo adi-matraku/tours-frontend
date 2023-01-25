@@ -11,6 +11,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {take} from "rxjs";
 import {UsersCreationModel} from "../../models/users-creation.model";
+import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-users-dialog',
@@ -23,7 +24,8 @@ import {UsersCreationModel} from "../../models/users-creation.model";
     MatIconModule,
     MatDialogModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSnackBarModule
   ],
   templateUrl: './users-dialog.component.html',
   styleUrls: ['./users-dialog.component.scss']
@@ -45,7 +47,7 @@ export class UsersDialogComponent {
 
   constructor(public dialogRef: MatDialogRef<UsersDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: UsersModel,
-              private usersService: UsersService,
+              private usersService: UsersService, private snackBar: MatSnackBar,
               private fb: FormBuilder
   ) {}
 
@@ -69,9 +71,11 @@ export class UsersDialogComponent {
   createUser(data: UsersCreationModel) {
     this.usersService.postUser(data).pipe(take(1)).subscribe({
       next: res => {
+        this.snackBar.open('Created successfully', 'Success', {duration: 1500})
         this.dialogRef.close(true);
       },
       error: err => {
+        this.snackBar.open(err.error, 'Error', {duration: 1500})
         this.onLoading = false;
         console.log(err);
       }

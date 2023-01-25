@@ -12,6 +12,7 @@ import {AuthStore} from "../../../../core/services/auth.store";
 import {PackageDataModel} from "../../../../shared/models/package-data.model";
 import {ToursService} from "../../services/tours.service";
 import {MatIconModule} from "@angular/material/icon";
+import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-tours-dialog',
@@ -23,7 +24,8 @@ import {MatIconModule} from "@angular/material/icon";
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatIconModule
+    MatIconModule,
+    MatSnackBarModule
   ],
   templateUrl: './tours-dialog.component.html',
   styleUrls: ['./tours-dialog.component.scss']
@@ -36,6 +38,7 @@ export class ToursDialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<ToursDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: PackageDataModel,
+              private snackBar: MatSnackBar,
               private authStore: AuthStore, private toursService: ToursService) {}
 
   ngOnInit() {
@@ -70,9 +73,11 @@ export class ToursDialogComponent implements OnInit {
   createTour(data: TourCreationModel) {
     this.toursService.postTour(data).pipe(take(1)).subscribe({
       next: res => {
+        this.snackBar.open('Created successfully', 'Success', {duration: 1500})
         this.dialogRef.close(true);
       },
       error: err => {
+        this.snackBar.open(err.error, 'Error')
         this.onLoading = false;
         console.log(err);
       }
@@ -82,9 +87,11 @@ export class ToursDialogComponent implements OnInit {
   updateTour(data: TourUpdateModel) {
     this.toursService.editTour(data).pipe(take(1)).subscribe({
       next: res => {
+        this.snackBar.open('Edited successfully', 'Success', {duration: 1500})
         this.dialogRef.close(true);
       },
       error: err => {
+        this.snackBar.open(err.error, 'Error')
         this.onLoading = false;
         console.log(err);
       }

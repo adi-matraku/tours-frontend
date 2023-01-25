@@ -11,6 +11,7 @@ import {UsersModel} from "../../models/users.model";
 import {UsersService} from "../../services/users.service";
 import {UserUpdateModel} from "../../../edit-profile/models/user-update.model";
 import {take} from "rxjs";
+import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-edit-users-dialog',
@@ -23,7 +24,8 @@ import {take} from "rxjs";
     MatIconModule,
     MatDialogModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSnackBarModule
   ],
   templateUrl: './edit-users-dialog.component.html',
   styleUrls: ['./edit-users-dialog.component.scss']
@@ -39,7 +41,7 @@ export class EditUsersDialogComponent implements OnInit {
     imageUrl: ['', Validators.required],
   })
 
-  constructor(public dialogRef: MatDialogRef<EditUsersDialogComponent>, private fb: FormBuilder,
+  constructor(public dialogRef: MatDialogRef<EditUsersDialogComponent>, private fb: FormBuilder, private snackBar: MatSnackBar,
               @Inject(MAT_DIALOG_DATA) public data: UsersModel, private usersService: UsersService) {
   }
 
@@ -69,9 +71,11 @@ export class EditUsersDialogComponent implements OnInit {
     this.onLoading = true;
     this.usersService.editUser(data).pipe(take(1)).subscribe({
       next: res => {
+        this.snackBar.open('Edited successfully', 'Success', {duration: 1500})
         this.dialogRef.close(true);
       },
       error: err => {
+        this.snackBar.open(err.error, 'Error', {duration: 1500})
         this.onLoading = false;
         console.log(err);
       }
