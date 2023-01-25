@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {PackageDataModel} from "../../../home/services/packages.store";
 import {PagesPagination} from "../../../home/models/pages-pagination.model";
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
@@ -10,6 +9,7 @@ import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import {take} from "rxjs";
 import {ToursDialogComponent} from "../tours-dialog/tours-dialog.component";
 import {ToursDeleteDialogComponent} from "../tours-delete-dialog/tours-delete-dialog.component";
+import {PackageDataModel} from "../../../../shared/models/package-data.model";
 
 @Component({
   selector: 'app-tours-table',

@@ -4,6 +4,8 @@ import {Observable} from "rxjs";
 import {environment} from "../../../../environments/environment";
 import {UsersParams, UsersResponseModel} from "./users.store";
 import {UsersCreationModel} from "../models/users-creation.model";
+import {UsersModel} from "../models/users.model";
+import {UserUpdateModel} from "../models/user-update.model";
 
 @Injectable({
   providedIn: "root"
@@ -32,9 +34,16 @@ export class UsersService {
     return httpParams;
   }
 
-  postUser(data: UsersCreationModel): Observable<any> {
-    return this.http.post<any>(`${environment.apiUrl}/User`, data)
+  postUser(data: UsersCreationModel): Observable<UsersModel> {
+    return this.http.post<UsersModel>(`${environment.apiUrl}/User`, data)
   }
 
+  editUser(data: UserUpdateModel): Observable<any> {
+    return this.http.put<any>(`${environment.apiUrl}/User/${data.id}`, data)
+  }
+
+  deleteUser(id: string) {
+    return this.http.delete(`${environment.apiUrl}/User/${id}`)
+  }
 
 }

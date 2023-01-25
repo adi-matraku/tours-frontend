@@ -1,8 +1,9 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {environment} from "../../../../environments/environment";
-import {PackageParams, PackageResponseModel} from "./packages.store";
+import {PackageParams} from "./packages.store";
 import {Observable} from "rxjs";
+import {PackageResponseModel} from "../../../shared/models/package-response.model";
 
 @Injectable({
   providedIn: 'root'

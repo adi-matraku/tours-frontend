@@ -1,11 +1,12 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {PackageParams, PackageResponseModel} from "../../home/services/packages.store";
+import {PackageParams} from "../../home/services/packages.store";
 import {environment} from "../../../../environments/environment";
 import {TourCreationModel} from "../models/tour-creation.model";
 import {PackageDataModel} from "../../../shared/models/package-data.model";
 import {Observable} from "rxjs";
 import {TourUpdateModel} from "../models/tour.update.model";
+import {PackageResponseModel} from "../../../shared/models/package-response.model";
 
 @Injectable({
   providedIn: "root"

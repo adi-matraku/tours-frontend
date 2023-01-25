@@ -2,13 +2,8 @@ import {ComponentStore} from "@ngrx/component-store";
 import {Injectable} from "@angular/core";
 import {catchError, EMPTY, Observable, switchMap, tap} from "rxjs";
 import {ToursService} from "./tours.service";
-import {Pagination} from "../../../shared/models/pagination.model";
 import {PackageDataModel} from "../../../shared/models/package-data.model";
-
-export interface PackageResponseModel {
-  data: PackageDataModel[];
-  pagination: Pagination;
-}
+import {PackageResponseModel} from "../../../shared/models/package-response.model";
 
 export interface ToursParams {
   name: string | null;

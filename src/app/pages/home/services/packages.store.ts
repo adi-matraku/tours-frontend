@@ -1,20 +1,9 @@
 import {ComponentStore} from "@ngrx/component-store";
-import {UserModel} from "../../../core/services/auth.store";
 import {Injectable} from "@angular/core";
 import {catchError, EMPTY, Observable, switchMap, tap} from "rxjs";
 import {PackagesService} from "./packages.service";
-import {Pagination} from "../../../shared/models/pagination.model";
-
-export interface PackageDataModel {
-  id: number;
-  name: string;
-  user: UserModel;
-}
-
-export interface PackageResponseModel {
-  data: PackageDataModel[];
-  pagination: Pagination;
-}
+import {PackageDataModel} from "../../../shared/models/package-data.model";
+import {PackageResponseModel} from "../../../shared/models/package-response.model";
 
 export interface PackageParams {
   name: string | null;

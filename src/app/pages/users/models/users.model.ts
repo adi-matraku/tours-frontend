@@ -1,7 +1,7 @@
 export interface UsersModel {
-  id: string;
+  id: number;
   name: string;
   email: string;
   role: number;
-  imageUrl: string | null;
+  imageUrl: string;
 }

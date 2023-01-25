@@ -7,6 +7,9 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatButtonModule} from "@angular/material/button";
 import {UsersModel} from "../../models/users.model";
+import {take} from "rxjs";
+import {EditUsersDialogComponent} from "../edit-users-dialog/edit-users-dialog.component";
+import {UsersDeleteDialogComponent} from "../users-delete-dialog/users-delete-dialog.component";
 
 @Component({
   selector: 'app-users-table',
@@ -40,9 +43,33 @@ export class UsersTableComponent {
 
   onEdit(user: UsersModel) {
     console.log(user);
+    const dialogRef = this.dialog.open(EditUsersDialogComponent, {
+      disableClose: true,
+      data: user
+    })
+
+    dialogRef.afterClosed().pipe(take(1)).subscribe({
+      next: res => {
+        if(res) {
+          this.loadState.emit();
+        }
+      }
+    })
   }
 
-  onDelete(user: string) {
-    console.log(user);
+  onDelete(id: string) {
+    const dialogRef = this.dialog.open(UsersDeleteDialogComponent, {
+      disableClose: true,
+      autoFocus: false,
+      data: id
+    })
+
+    dialogRef.afterClosed().pipe(take(1)).subscribe({
+      next: res => {
+        if(res) {
+          this.loadState.emit();
+        }
+      }
+    })
   }
 }

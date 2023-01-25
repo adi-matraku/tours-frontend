@@ -12,7 +12,7 @@ import {ProfileService} from "./pages/edit-profile/services/profile.service";
 export class AppComponent implements OnInit {
   title = 'tours-project-frontend';
 
-  constructor(public authStore: AuthStore, private profileService: ProfileService) {
+  constructor(public authStore: AuthStore) {
   }
 
   ngOnInit() {
@@ -44,8 +44,7 @@ export class AppComponent implements OnInit {
       //   });
     } else {
       this.authStore.setInitialState();
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
+      localStorage.clear();
     }
   }
 }
