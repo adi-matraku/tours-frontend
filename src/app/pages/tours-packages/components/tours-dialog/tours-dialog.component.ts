@@ -77,9 +77,9 @@ export class ToursDialogComponent implements OnInit {
         this.dialogRef.close(true);
       },
       error: err => {
-        this.snackBar.open(err.error, 'Error')
-        this.onLoading = false;
         console.log(err);
+        this.snackBar.open(err.error.title, 'Error', {duration: 1500})
+        this.onLoading = false;
       }
     });
   }
@@ -91,9 +91,9 @@ export class ToursDialogComponent implements OnInit {
         this.dialogRef.close(true);
       },
       error: err => {
-        this.snackBar.open(err.error, 'Error')
-        this.onLoading = false;
         console.log(err);
+        this.snackBar.open(err.error.title, 'Error', {duration: 1500})
+        this.onLoading = false;
       }
     });
   }

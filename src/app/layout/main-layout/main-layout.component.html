@@ -8,7 +8,7 @@
             <a routerLinkActive="active" routerLink="home" class="nav-link">Home</a>
           </li>
           <li [appRole]="['Admin', 0]">
-            <button mat-button [matMenuTriggerFor]="afterMenu">Dashboard</button>
+            <button mat-button [matMenuTriggerFor]="afterMenu" class="mat-menu-title">Dashboard</button>
             <mat-menu #afterMenu="matMenu" xPosition="after">
               <button mat-menu-item routerLink="tours-packages">
                 <span class="flex profile-gap">
@@ -35,10 +35,12 @@
           <ng-template #authenticated>
             <ng-container *ngIf="state.authenticated && state.user">
               <li class="-list-items">
-                <a routerLinkActive="active" routerLink="favorites" class="nav-link">Favorites ({{ state.favorites.length }})</a>
+                <a routerLinkActive="active" routerLink="favorites" class="nav-link">
+                  Favorites ({{ state.favorites.length }})
+                </a>
               </li>
               <li>
-                <button mat-button [matMenuTriggerFor]="beforeMenu">{{state.user.name}}</button>
+                <button mat-button [matMenuTriggerFor]="beforeMenu" class="mat-menu-title">{{state.user.name}}</button>
                 <mat-menu class="profile-menu" #beforeMenu="matMenu" xPosition="before">
                   <button mat-menu-item routerLink="profile">
                     <span class="flex profile-gap">

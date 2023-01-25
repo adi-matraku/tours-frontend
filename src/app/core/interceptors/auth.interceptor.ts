@@ -19,7 +19,7 @@ export class TokenInterceptor implements HttpInterceptor {
           }
         })
         return next.handle(modifiedReq).pipe(catchError(err => {
-          if(err.status === 403 || err.status === 401) {
+          if(err.status === 403) {
             this.authStore.setInitialState();
             this.authService.logout();
           }
