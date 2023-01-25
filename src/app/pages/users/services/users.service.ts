@@ -5,7 +5,7 @@ import {environment} from "../../../../environments/environment";
 import {UsersParams, UsersResponseModel} from "./users.store";
 import {UsersCreationModel} from "../models/users-creation.model";
 import {UsersModel} from "../models/users.model";
-import {UserUpdateModel} from "../models/user-update.model";
+import {UserUpdateModel} from "../../../shared/models/user-update.model";
 
 @Injectable({
   providedIn: "root"

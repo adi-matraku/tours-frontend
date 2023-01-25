@@ -9,9 +9,7 @@ import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
 import {PagesPagination} from "../../../home/models/pages-pagination.model";
 import {MatIconModule} from "@angular/material/icon";
 import {UsersTableComponent} from "../../components/users-table/users-table.component";
-import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
-import {ToursDialogComponent} from "../../../tours-packages/components/tours-dialog/tours-dialog.component";
 import {take} from "rxjs";
 import {UsersDialogComponent} from "../../components/users-dialog/users-dialog.component";
 

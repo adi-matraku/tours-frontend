@@ -9,9 +9,9 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {UsersModel} from "../../models/users.model";
 import {UsersService} from "../../services/users.service";
-import {UserUpdateModel} from "../../../edit-profile/models/user-update.model";
 import {take} from "rxjs";
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
+import {UserUpdateModel} from "../../../../shared/models/user-update.model";
 
 @Component({
   selector: 'app-edit-users-dialog',

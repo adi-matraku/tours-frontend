@@ -1,4 +1,4 @@
-import {UserModel} from "../../core/services/auth.store";
+import {UserModel} from "./user.model";
 
 export interface PackageDataModel {
   id: number;

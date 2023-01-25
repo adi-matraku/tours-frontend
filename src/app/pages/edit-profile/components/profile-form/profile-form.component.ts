@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
-import {UserModel} from "../../../../core/services/auth.store";
 import {MatButtonModule} from "@angular/material/button";
-import {UserUpdateModel} from "../../models/user-update.model";
 import {MatIconModule} from "@angular/material/icon";
+import {UserModel} from "../../../../shared/models/user.model";
+import {UserUpdateModel} from "../../../../shared/models/user-update.model";
 
 @Component({
   selector: 'app-profile-form',

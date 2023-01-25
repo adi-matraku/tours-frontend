@@ -5,15 +5,7 @@ import {UserCredentials} from "../../pages/auth/models/user-credentials.model";
 import {Injectable} from "@angular/core";
 import {Router} from "@angular/router";
 import {UserRegistrationModel} from "../../pages/auth/models/user-registration.model";
-
-export interface UserModel {
-  id: number;
-  name: string;
-  email: string;
-  role: string;
-  token?: string;
-  imageUrl?: string;
-}
+import {UserModel} from "../../shared/models/user.model";
 
 export interface AuthState {
   user: UserModel | null,

@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {ProfileFormComponent} from "../../components/profile-form/profile-form.component";
 import {catchError, concatMap, Observable, of, take, tap} from "rxjs";
-import {AuthStore, UserModel} from "../../../../core/services/auth.store";
+import {AuthStore} from "../../../../core/services/auth.store";
 import {ProfileService} from "../../services/profile.service";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
-import {UserUpdateModel} from "../../models/user-update.model";
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
+import {UserModel} from "../../../../shared/models/user.model";
+import {UserUpdateModel} from "../../../../shared/models/user-update.model";
 
 @Component({
   selector: 'app-profile',
