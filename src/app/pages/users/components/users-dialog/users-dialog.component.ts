@@ -1,6 +1,5 @@
 import {Component, Inject} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {TourCreationModel} from "../../../tours-packages/models/tour-creation.model";
 import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {UsersModel} from "../../models/users.model";
@@ -10,6 +9,8 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatIconModule} from "@angular/material/icon";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
+import {take} from "rxjs";
+import {UsersCreationModel} from "../../models/users-creation.model";
 
 @Component({
   selector: 'app-users-dialog',
@@ -28,15 +29,16 @@ import {MatButtonModule} from "@angular/material/button";
   styleUrls: ['./users-dialog.component.scss']
 })
 export class UsersDialogComponent {
+
   hide = true;
 
   submitted: boolean = false;
   onLoading: boolean = false;
 
-  form = this.fb.group({
-    name: ['', Validators.required],
+  form = this.fb.nonNullable.group({
+    name: ['', [Validators.required, Validators.minLength(3)]],
     email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required],
+    password: ['', [Validators.required, Validators.minLength(8)]],
     role: ['', Validators.required],
     imageUrl: ['', Validators.required],
   })
@@ -47,10 +49,6 @@ export class UsersDialogComponent {
               private fb: FormBuilder
   ) {}
 
-  ngOnInit() {
-    console.log(this.data);
-  }
-
   onSubmit() {
     this.submitted = true;
 
@@ -58,20 +56,27 @@ export class UsersDialogComponent {
       this.form.markAllAsTouched();
       return;
     }
-    // this.onLoading = true;
-    // if(this.data) {
-    //   const data = {
-    //     id: this.data.id,
-    //     name: this.name.getRawValue(),
-    //   }
-    //   this.updateTour(data);
-    // } else {
-    //   const data: TourCreationModel = {
-    //     name: this.name.getRawValue(),
-    //     userId: this.authStore.state.user?.id!
-    //   }
-    //   this.createTour(data);
-    // }
+
+    this.onLoading = true;
+    const data = {
+      ...this.form.getRawValue(),
+      createdAt: new Date().toISOString(),
+      lastActive: new Date().toISOString()
+    }
+    this.createUser(data);
   }
+
+  createUser(data: UsersCreationModel) {
+    this.usersService.postUser(data).pipe(take(1)).subscribe({
+      next: res => {
+        this.dialogRef.close(true);
+      },
+      error: err => {
+        this.onLoading = false;
+        console.log(err);
+      }
+    });
+  }
+
 
 }

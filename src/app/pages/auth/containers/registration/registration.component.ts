@@ -30,7 +30,7 @@ export class RegistrationComponent {
 
   form = this.fb.nonNullable.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
-    email: ['', [Validators.required, Validators.minLength(6), Validators.email]],
+    email: ['', [Validators.required, Validators.email]],
     imageUrl: ['', [Validators.required]],
     password: ['', [Validators.required, Validators.minLength(8)]]
   });

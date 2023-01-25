@@ -23,7 +23,7 @@
 
     <ng-container matColumnDef="image">
       <th mat-header-cell *matHeaderCellDef> Image Url </th>
-      <td mat-cell *matCellDef="let element"> {{element.imageUrl}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.imageUrl === null ? '-' : element.imageUrl}} </td>
     </ng-container>
 
     <ng-container matColumnDef="action">

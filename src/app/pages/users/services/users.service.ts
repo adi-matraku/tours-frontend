@@ -3,6 +3,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../../../environments/environment";
 import {UsersParams, UsersResponseModel} from "./users.store";
+import {UsersCreationModel} from "../models/users-creation.model";
 
 @Injectable({
   providedIn: "root"
@@ -30,5 +31,10 @@ export class UsersService {
 
     return httpParams;
   }
+
+  postUser(data: UsersCreationModel): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}/User`, data)
+  }
+
 
 }

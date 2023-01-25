@@ -22,19 +22,21 @@
         <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
+        <mat-hint>*Password min. length: 8</mat-hint>
         <mat-error *ngIf="submitted && form.get('password')?.invalid">Please input a valid password</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Select Role</mat-label>
         <mat-select formControlName="role">
-          <mat-option [value]="'0'">
+          <mat-option [value]="0">
             Admin
           </mat-option>
           <mat-option [value]="2">
             User
           </mat-option>
         </mat-select>
+        <mat-error *ngIf="submitted && form.get('role')?.invalid">Please input a role</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
@@ -45,7 +47,7 @@
     </form>
   </div>
   <div class="mt-2 flex gap-sm">
-    <button mat-button type="button"[mat-dialog-close]="false" [disabled]="onLoading">Cancel</button>
+    <button mat-button type="button" [mat-dialog-close]="false" [disabled]="onLoading">Cancel</button>
     <button mat-raised-button color="primary" type="submit" (click)="onSubmit()" [disabled]="onLoading">
       <mat-icon>save</mat-icon>
       Save

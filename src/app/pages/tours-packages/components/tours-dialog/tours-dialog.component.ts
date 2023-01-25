@@ -79,7 +79,6 @@ export class ToursDialogComponent implements OnInit {
     });
   }
 
-
   updateTour(data: TourUpdateModel) {
     this.toursService.editTour(data).pipe(take(1)).subscribe({
       next: res => {
