@@ -59,6 +59,10 @@ export class AuthStore extends ComponentStore<AuthState> {
 
   // setUser = (user: UserModel) => this.patchState({user: user});
 
+  isFavorite = (favorite: number) => {
+    return this.favorites.find(item => item.packageId === favorite);
+  }
+
   login = this.effect((credentials$: Observable<UserCredentials>) =>
     credentials$.pipe(
       tap(() => this.patchState({
@@ -174,5 +178,29 @@ export class AuthStore extends ComponentStore<AuthState> {
       })
     ))
   ));
+
+  removeFavorite = this.effect((favorite$: Observable<number>) => favorite$.pipe(
+    switchMap(favorite => this.favoritesService.deleteFavorite(favorite).pipe(
+      concatMap(() => {
+        return this.favoritesService.getFavorites().pipe(
+          tap((res) => {
+            this.patchState({
+              favorites: res
+            })
+            localStorage.setItem('favorites', JSON.stringify(res))
+          }),
+          catchError((err) => {
+            console.error('Cannot get favorites', err);
+            return EMPTY;
+          })
+        )
+      }),
+      catchError(err => {
+        console.error('Cannot remove favorite', err);
+        return EMPTY;
+      })
+    ))
+  ));
+
 
 }

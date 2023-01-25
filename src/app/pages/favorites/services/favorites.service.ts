@@ -19,4 +19,8 @@ export class FavoritesService {
     return this.http.post<boolean>(`${environment.apiUrl}/Favorite/${packageId}`, {})
   }
 
+  deleteFavorite(packageId: number): Observable<boolean> {
+    return this.http.delete<boolean>(`${environment.apiUrl}/Favorite/${packageId}`)
+  }
+
 }

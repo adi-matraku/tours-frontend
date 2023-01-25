@@ -54,6 +54,11 @@ export class PackagesComponent {
     this.authStore.setFavorite(card.id);
   }
 
+  onRemoveFavorite(card: PackageDataModel) {
+    console.log(card);
+    this.authStore.removeFavorite(card.id);
+  }
+
   onPageChange(event: PagesPagination) {
     this.paginationChanged.emit({pagination: event, name: this.search.getRawValue()})
   }
