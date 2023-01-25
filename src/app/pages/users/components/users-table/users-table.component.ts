@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
-import {PagesPagination} from "../../../home/models/pages-pagination.model";
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
@@ -10,6 +9,7 @@ import {take} from "rxjs";
 import {EditUsersDialogComponent} from "../edit-users-dialog/edit-users-dialog.component";
 import {UsersDeleteDialogComponent} from "../users-delete-dialog/users-delete-dialog.component";
 import {UserModel} from "../../../../shared/models/user.model";
+import {PagesPagination} from "../../../../shared/models/pages-pagination.model";
 
 @Component({
   selector: 'app-users-table',

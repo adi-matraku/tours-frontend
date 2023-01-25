@@ -11,7 +11,14 @@ import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 @Component({
   selector: 'app-users-delete-dialog',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatSnackBarModule],
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSnackBarModule
+  ],
   templateUrl: './users-delete-dialog.component.html',
   styleUrls: ['./users-delete-dialog.component.scss']
 })

@@ -1,4 +1,4 @@
-import {PagesPagination} from "./pages-pagination.model";
+import {PagesPagination} from "../../../shared/models/pages-pagination.model";
 
 export interface PagesFilteringModel {
   pagination: PagesPagination;

@@ -35,7 +35,7 @@
           <ng-template #authenticated>
             <ng-container *ngIf="state.authenticated && state.user">
               <li class="-list-items">
-                <a routerLinkActive="active" routerLink="favorites" class="nav-link">Favorites</a>
+                <a routerLinkActive="active" routerLink="favorites" class="nav-link">Favorites ({{ state.favorites.length }})</a>
               </li>
               <li>
                 <button mat-button [matMenuTriggerFor]="beforeMenu">{{state.user.name}}</button>

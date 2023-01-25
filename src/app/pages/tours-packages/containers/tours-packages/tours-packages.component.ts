@@ -5,13 +5,13 @@ import {ToursTableComponent} from "../../components/tours-table/tours-table.comp
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {ToursStore} from "../../services/tours.store";
-import {PagesPagination} from "../../../home/models/pages-pagination.model";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import {take} from "rxjs";
 import {ToursDialogComponent} from "../../components/tours-dialog/tours-dialog.component";
+import {PagesPagination} from "../../../../shared/models/pages-pagination.model";
 
 @Component({
   selector: 'app-tours-packages',

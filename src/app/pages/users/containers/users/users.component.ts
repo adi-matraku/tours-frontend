@@ -6,12 +6,12 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
-import {PagesPagination} from "../../../home/models/pages-pagination.model";
 import {MatIconModule} from "@angular/material/icon";
 import {UsersTableComponent} from "../../components/users-table/users-table.component";
 import {MatSelectModule} from "@angular/material/select";
 import {take} from "rxjs";
-import {UsersDialogComponent} from "../../components/users-dialog/users-dialog.component";
+import {UsersCreateDialogComponent} from "../../components/users-create-dialog/users-create-dialog.component";
+import {PagesPagination} from "../../../../shared/models/pages-pagination.model";
 
 @Component({
   selector: 'app-users',
@@ -44,7 +44,7 @@ export class UsersComponent implements OnInit {
   }
 
   onCreate() {
-    const dialogRef = this.dialog.open(UsersDialogComponent, {
+    const dialogRef = this.dialog.open(UsersCreateDialogComponent, {
       disableClose: true,
     })
 

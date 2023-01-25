@@ -14,7 +14,7 @@ import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 import {UserModel} from "../../../../shared/models/user.model";
 
 @Component({
-  selector: 'app-users-dialog',
+  selector: 'app-users-create-dialog',
   standalone: true,
   imports: [
     CommonModule,
@@ -27,10 +27,10 @@ import {UserModel} from "../../../../shared/models/user.model";
     MatButtonModule,
     MatSnackBarModule
   ],
-  templateUrl: './users-dialog.component.html',
-  styleUrls: ['./users-dialog.component.scss']
+  templateUrl: './users-create-dialog.component.html',
+  styleUrls: ['./users-create-dialog.component.scss']
 })
-export class UsersDialogComponent {
+export class UsersCreateDialogComponent {
 
   hide = true;
 
@@ -45,7 +45,7 @@ export class UsersDialogComponent {
     imageUrl: ['', Validators.required],
   })
 
-  constructor(public dialogRef: MatDialogRef<UsersDialogComponent>,
+  constructor(public dialogRef: MatDialogRef<UsersCreateDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: UserModel,
               private usersService: UsersService, private snackBar: MatSnackBar,
               private fb: FormBuilder

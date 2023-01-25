@@ -8,10 +8,11 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatInputModule} from "@angular/material/input";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatCardModule} from "@angular/material/card";
-import {PagesPagination} from "../../models/pages-pagination.model";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {PackageDataModel} from "../../../../shared/models/package-data.model";
 import {PagesFilteringModel} from "../../models/pages-filtering.model";
+import {AuthStore} from "../../../../core/services/auth.store";
+import {PagesPagination} from "../../../../shared/models/pages-pagination.model";
 
 @Component({
   selector: 'app-packages',
@@ -45,8 +46,12 @@ export class PackagesComponent {
   @Output() paginationChanged = new EventEmitter<PagesFilteringModel>();
   @Output() filterChanged = new EventEmitter<string | null>();
 
+  constructor(public authStore: AuthStore) {
+  }
+
   addToFavorite(card: PackageDataModel) {
     console.log(card);
+    this.authStore.setFavorite(card.id);
   }
 
   onPageChange(event: PagesPagination) {

@@ -14,7 +14,7 @@ import {UserUpdateModel} from "../../../../shared/models/user-update.model";
 import {UserModel} from "../../../../shared/models/user.model";
 
 @Component({
-  selector: 'app-edit-users-dialog',
+  selector: 'app-edit-users-create-dialog',
   standalone: true,
   imports: [
     CommonModule,
