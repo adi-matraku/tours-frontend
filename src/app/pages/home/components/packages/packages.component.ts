@@ -56,6 +56,7 @@ export class PackagesComponent {
 
   onRemoveFavorite(card: PackageDataModel) {
     console.log(card);
+    console.log(card.id);
     this.authStore.removeFavorite(card.id);
   }
 
