@@ -1,0 +1,13 @@
+img {
+  width: 100%;
+}
+
+.cards-box {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  column-gap: 1.5rem;
+  row-gap: 1.5rem;
+  width: 100%;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+}

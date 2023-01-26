@@ -3,8 +3,8 @@ import {FavoritePackageModel} from "./favorite-package.model";
 
 export interface FavoritesModel {
   id: number;
-  package: FavoritePackageModel;
   packageId: number;
-  user: UserModel | null;
+  package: FavoritePackageModel;
   userId: number;
+  user: UserModel | null;
 }

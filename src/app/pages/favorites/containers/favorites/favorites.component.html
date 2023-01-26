@@ -1,1 +1,11 @@
-<p>favorites works!</p>
+<div class="pages-container">
+  <ng-container *ngIf="favoritesStore.state$ | async as favorites">
+    <app-favorites-cards
+      [data]="favorites.data"
+      [total]="favorites.total"
+      [loading]="favorites.loading"
+      [error]="favorites.error"
+    >
+    </app-favorites-cards>
+  </ng-container>
+</div>
