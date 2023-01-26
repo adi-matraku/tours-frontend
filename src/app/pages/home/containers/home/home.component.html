@@ -4,6 +4,8 @@
       [data]="(store.vm$ | async) || []"
       [total]="state.total"
       [params]="state.params"
+      [pageSize]="state.params.pageSize"
+      [pageNumber]="state.params.pageNumber"
       [loading]="state.loading"
       [loaded]="state.loaded"
       (filterChanged)="onFilter($event)"

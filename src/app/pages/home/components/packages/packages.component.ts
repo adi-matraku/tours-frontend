@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {PackageParams} from "../../services/packages.store";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
@@ -13,6 +13,9 @@ import {PackageDataModel} from "../../../../shared/models/package-data.model";
 import {PagesFilteringModel} from "../../models/pages-filtering.model";
 import {AuthStore} from "../../../../core/services/auth.store";
 import {PagesPagination} from "../../../../shared/models/pages-pagination.model";
+import {ActivatedRoute} from "@angular/router";
+import {take} from "rxjs";
+import {isEmpty} from "../../utils/checkEmpty.function";
 
 @Component({
   selector: 'app-packages',
@@ -42,16 +45,25 @@ export class PackagesComponent {
   @Input() total!: number;
   @Input() error!: string | null;
   @Input() params!: PackageParams;
+  @Input() pageSize!: number;
+  @Input() pageNumber!: number;
 
   @Output() paginationChanged = new EventEmitter<PagesFilteringModel>();
   @Output() filterChanged = new EventEmitter<string | null>();
 
-  constructor(public authStore: AuthStore) {
+  constructor(public authStore: AuthStore, private route: ActivatedRoute) {
+  }
+
+  ngOnInit() {
+    this.route.queryParams.pipe(take(1)).subscribe(params => {
+      if(params['name']) this.search.setValue(params['name'])
+    });
   }
 
   toggleFavorite(card: PackageDataModel) {
     console.log(card);
 
+    console.log(card.isFavorite);
     if (card.isFavorite) {
       this.authStore.removeFavorite(card.id);
     } else {

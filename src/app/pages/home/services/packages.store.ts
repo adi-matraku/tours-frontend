@@ -59,7 +59,6 @@ export class PackagesStore extends ComponentStore<PackagesState> {
     }
   );
 
-
   get params() {
     return this.get(s => s.params);
   }
