@@ -31,7 +31,10 @@
       <td mat-cell *matCellDef="let element">
         <div class="flex-row gap-sm">
           <button mat-raised-button color="accent" type="button" (click)="onEdit(element)">Edit</button>
-          <button mat-raised-button color="warn" (click)="onDelete(element.id)">Delete</button>
+          <button mat-raised-button color="warn"
+                  (confirmDelete)="$event ? this.loadState.emit() : null" type="user">
+            Delete
+          </button>
         </div>
       </td>
     </ng-container>

@@ -7,9 +7,9 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import {take} from "rxjs";
 import {ToursDialogComponent} from "../tours-dialog/tours-dialog.component";
-import {ToursDeleteDialogComponent} from "../tours-delete-dialog/tours-delete-dialog.component";
 import {PackageDataModel} from "../../../../shared/models/package-data.model";
 import {PagesPagination} from "../../../../shared/models/pages-pagination.model";
+import {ConfirmDeleteDirective} from "../../../../shared/directives/confirm-delete.directive";
 
 @Component({
   selector: 'app-tours-table',
@@ -21,6 +21,7 @@ import {PagesPagination} from "../../../../shared/models/pages-pagination.model"
     MatProgressSpinnerModule,
     MatButtonModule,
     MatDialogModule,
+    ConfirmDeleteDirective
   ],
   templateUrl: './tours-table.component.html',
   styleUrls: ['./tours-table.component.scss']
@@ -48,23 +49,6 @@ export class ToursTableComponent {
 
     dialogRef.afterClosed().pipe(take(1)).subscribe({
       next: res => {
-        if(res) {
-          this.loadState.emit();
-        }
-      }
-    })
-  }
-
-  onDelete(data: string) {
-    const dialogRef = this.dialog.open(ToursDeleteDialogComponent, {
-      disableClose: true,
-      autoFocus: false,
-      data: data,
-    })
-
-    dialogRef.afterClosed().pipe(take(1)).subscribe({
-      next: res => {
-        console.log(res);
         if(res) {
           this.loadState.emit();
         }

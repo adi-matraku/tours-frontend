@@ -22,7 +22,7 @@ import {UserUpdateModel} from "../../../../shared/models/user-update.model";
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent {
+export default class ProfileComponent {
 
   loadingButton: boolean = false;
 

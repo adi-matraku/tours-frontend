@@ -1,23 +1,19 @@
-import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
-import {map, Observable} from 'rxjs';
+import {inject} from '@angular/core';
+import {CanActivateFn, Router} from '@angular/router';
+import {map} from 'rxjs';
 import {AuthStore} from "../services/auth.store";
 
-@Injectable({
-  providedIn: 'root',
-})
-export class NonAuthGuard implements CanActivate {
-  constructor(private authStore: AuthStore, private router: Router) {}
 
-  canActivate(): Observable<boolean> {
-    return this.authStore.token$.pipe(
-      map(token => {
-        if (!token) {
-          return true;
-        }
-        this.router.navigateByUrl('home').then();
-        return false;
-      })
-    );
-  }
+export const nonAuthGuard: CanActivateFn = () => {
+  const authStore = inject(AuthStore);
+  const router = inject(Router);
+
+  return authStore.token$.pipe(
+    map(token => {
+      if (!token) {
+        return true;
+      }
+      return router.createUrlTree(['home']);
+    })
+  );
 }

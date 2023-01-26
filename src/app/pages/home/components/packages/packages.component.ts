@@ -49,15 +49,14 @@ export class PackagesComponent {
   constructor(public authStore: AuthStore) {
   }
 
-  addToFavorite(card: PackageDataModel) {
+  toggleFavorite(card: PackageDataModel) {
     console.log(card);
-    this.authStore.setFavorite(card.id);
-  }
 
-  onRemoveFavorite(card: PackageDataModel) {
-    console.log(card);
-    console.log(card.id);
-    this.authStore.removeFavorite(card.id);
+    if (card.isFavorite) {
+      this.authStore.removeFavorite(card.id);
+    } else {
+      this.authStore.setFavorite(card.id);
+    }
   }
 
   onPageChange(event: PagesPagination) {

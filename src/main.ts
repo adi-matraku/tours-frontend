@@ -1,13 +1,12 @@
-import {enableProdMode, importProvidersFrom} from '@angular/core';
-import { environment } from './environments/environment';
+import {enableProdMode} from '@angular/core';
+import {environment} from './environments/environment';
 import {bootstrapApplication} from "@angular/platform-browser";
 import {AppComponent} from "./app/app.component";
-import {RouterModule} from "@angular/router";
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {provideRouter} from "@angular/router";
+import {provideHttpClient, withInterceptors} from "@angular/common/http";
+import {provideAnimations} from "@angular/platform-browser/animations";
 import {appRoutes} from "./app/app.routes";
-import {TokenInterceptor} from "./app/core/interceptors/auth.interceptor";
-// import {AuthInterceptor} from "./app/core/interceptors/auth.interceptor";
+import {authInterceptor} from "./app/core/interceptors/auth.interceptor";
 
 if (environment.production) {
   enableProdMode();
@@ -15,15 +14,11 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
   providers: [
-    importProvidersFrom(RouterModule.forRoot(appRoutes),
-      HttpClientModule,
-      BrowserAnimationsModule
+    provideRouter(appRoutes),
+    provideHttpClient(
+      withInterceptors([authInterceptor])
     ),
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true,
-    },
+    provideAnimations(),
   ]
 })
   .catch(err => console.error(err));

@@ -1,6 +1,6 @@
 import {ComponentStore} from "@ngrx/component-store";
 import {Injectable} from "@angular/core";
-import {catchError, EMPTY, Observable, switchMap, tap} from "rxjs";
+import {catchError, EMPTY, Observable, of, switchMap, tap} from "rxjs";
 import {PackagesService} from "./packages.service";
 import {PackageDataModel} from "../../../shared/models/package-data.model";
 import {PackageResponseModel} from "../../../shared/models/package-response.model";
@@ -40,6 +40,25 @@ export class PackagesStore extends ComponentStore<PackagesState> {
 
     this.state$.subscribe(console.log)
   }
+
+  // favoritesStore.favoritePackageIds$
+  // markAsFavorite, removeFavorite,
+
+  favoritePackagesIds$ = of([1,23,4,5]);
+
+  packages$ = this.select(s => s.data);
+
+  vm$ = this.select(
+    this.packages$,
+    this.favoritePackagesIds$,
+    (packages, favoriteIds) => {
+      return packages.map(p => ({
+        ...p,
+        isFavorite: favoriteIds.includes(p.id)
+      }))
+    }
+  );
+
 
   get params() {
     return this.get(s => s.params);

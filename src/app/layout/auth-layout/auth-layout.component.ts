@@ -23,5 +23,5 @@ import {MatButtonModule} from "@angular/material/button";
   `,
   styleUrls: ['./auth-layout.component.scss']
 })
-export class AuthLayoutComponent {
+export default class AuthLayoutComponent {
 }

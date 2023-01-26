@@ -1,7 +1,7 @@
 import {Route} from "@angular/router";
-import {NonAuthGuard} from "../../core/guards/non-auth.guard";
+import {nonAuthGuard} from "../../core/guards/non-auth.guard";
 
-export const AUTH_ROUTES: Route[] = [
+const AUTH_ROUTES: Route[] = [
   {
     path: '',
     redirectTo: 'login',
@@ -9,14 +9,14 @@ export const AUTH_ROUTES: Route[] = [
   },
   {
     path: 'login',
-    canActivate: [NonAuthGuard],
+    canActivate: [nonAuthGuard],
     loadComponent: () => import('./containers/authentication/authentication.component')
-      .then((m) => m.AuthenticationComponent)
   },
   {
     path: 'register',
-    canActivate: [NonAuthGuard],
+    canActivate: [nonAuthGuard],
     loadComponent: () => import('./containers/registration/registration.component')
-      .then((m) => m.RegistrationComponent)
   },
 ]
+
+export default AUTH_ROUTES;

@@ -24,7 +24,7 @@ import {UserRegistrationModel} from "../../models/user-registration.model";
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss']
 })
-export class RegistrationComponent {
+export default class RegistrationComponent {
   hide = true;
   submitted: boolean = false;
 

@@ -1,17 +1,17 @@
 import {Routes} from "@angular/router";
 import {MainLayoutComponent} from "./layout/main-layout/main-layout.component";
-import {AuthLayoutComponent} from "./layout/auth-layout/auth-layout.component";
 
 export const appRoutes: Routes = [
   {
     path: '', redirectTo: 'home', pathMatch: 'full'
   },
   {
-    path: 'auth', component: AuthLayoutComponent, children: [
+    path: 'auth',
+    loadComponent: () => import('./layout/auth-layout/auth-layout.component'),
+    children: [
       {
         path: '',
-        loadChildren: () =>
-          import('./pages/auth/auth.routes').then((m) => m.AUTH_ROUTES)
+        loadChildren: () => import('./pages/auth/auth.routes')
       },
     ]
   },
@@ -25,9 +25,7 @@ export const appRoutes: Routes = [
       },
       {
         path: 'profile',
-        loadChildren: () =>
-          import('./pages/edit-profile/profile.routes')
-            .then((m) => m.PROFILE_ROUTES)
+        loadChildren: () => import('./pages/edit-profile/profile.routes')
       },
       {
         path: 'favorites',

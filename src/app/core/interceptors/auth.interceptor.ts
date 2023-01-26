@@ -1,33 +1,32 @@
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
-import {Injectable} from "@angular/core";
-import {catchError, Observable, switchMap, take, throwError} from "rxjs";
+import {HttpHandlerFn, HttpInterceptorFn, HttpRequest} from "@angular/common/http";
+import {inject} from "@angular/core";
+import {catchError, switchMap, take, throwError} from "rxjs";
 import {AuthStore} from "../services/auth.store";
 import {AuthService} from "../../pages/auth/services/auth.service";
 
-@Injectable()
-export class TokenInterceptor implements HttpInterceptor {
-  constructor(private authStore: AuthStore, private authService: AuthService) {}
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+export const authInterceptor: HttpInterceptorFn = (request: HttpRequest<any>, next: HttpHandlerFn) => {
+  const authStore = inject(AuthStore)
+  const authService = inject(AuthService);
 
-    return this.authStore.token$.pipe(
-      take(1),
-      switchMap(token => {
-      if(token) {
+  return authStore.token$.pipe(
+    take(1),
+    switchMap(token => {
+      if (token) {
         let modifiedReq = request.clone({
           setHeaders: {
             Authorization: `Bearer ${token}`
           }
         })
-        return next.handle(modifiedReq).pipe(catchError(err => {
-          if(err.status === 403) {
-            this.authStore.setInitialState();
-            this.authService.logout();
+        return next(modifiedReq).pipe(catchError(err => {
+          if (err.status === 403) {
+            authStore.setInitialState();
+            authService.logout();
           }
           return throwError(err);
         }))
       }
-      return next.handle(request)
+      return next(request)
     }))
 
-  }
 }
+

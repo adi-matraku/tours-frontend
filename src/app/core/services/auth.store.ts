@@ -37,6 +37,12 @@ export class AuthStore extends ComponentStore<AuthState> {
   token$ = this.select((state) => state.token)
   user$ = this.select((state) => state.user)
 
+  // vm$ = this.user$.pipe(
+  //   if(user) {
+  //     this.favoritesService.getFavorites();
+  //   }
+  // )
+
   constructor(private authService: AuthService, private router: Router, private favoritesService: FavoritesService) {
     super(initialState);
 

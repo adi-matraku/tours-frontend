@@ -26,7 +26,7 @@
         <mat-error *ngIf="submitted && form.get('password')?.invalid">Please input a valid password</mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="outline">
         <mat-label>Select Role</mat-label>
         <mat-select formControlName="role">
           <mat-option [value]="0">

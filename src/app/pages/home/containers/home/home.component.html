@@ -1,7 +1,7 @@
 <div class="pages-container">
   <ng-container *ngIf="store.state$ | async as state">
     <app-packages
-      [data]="state.data"
+      [data]="(store.vm$ | async) || []"
       [total]="state.total"
       [params]="state.params"
       [loading]="state.loading"

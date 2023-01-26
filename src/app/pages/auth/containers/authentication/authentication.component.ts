@@ -23,7 +23,7 @@ import {AuthStore} from "../../../../core/services/auth.store";
   templateUrl: './authentication.component.html',
   styleUrls: ['./authentication.component.scss'],
 })
-export class AuthenticationComponent {
+export default class AuthenticationComponent {
   hide = true;
   submitted: boolean = false;
 
