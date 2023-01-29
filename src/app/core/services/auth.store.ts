@@ -36,10 +36,21 @@ export class AuthStore extends ComponentStore<AuthState> {
   user$ = this.select((state) => state.user)
 
   vm$ = this.user$.pipe(switchMap((user)=>
-    user ?
-      this.favoritesService.getFavorites() :
-      of(null)
-  ),
+      user ?
+        this.favoritesService.getFavorites().pipe(
+          // tap(res => {
+          //   console.log(res, 'IM HEREEEE!!!!!!!');
+          //   const ids: number[] = [];
+          //   res.forEach((favorite)=>{
+          //     ids.push(favorite.packageId);
+          //   })
+          //   this.patchState({
+          //     packageIds: ids
+          //   })
+          // })
+        )
+        : of(null)
+    ),
     shareReplay(1)
   )
 
