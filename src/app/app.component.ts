@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {RouterModule} from "@angular/router";
 import {AuthStore} from "./core/services/auth.store";
+import {PackagesStore} from "./pages/home/services/packages.store";
+import {FavoritesStore} from "./pages/favorites/services/favorites.store";
 
 @Component({
   standalone: true,

@@ -35,27 +35,7 @@ export class AuthStore extends ComponentStore<AuthState> {
   token$ = this.select((state) => state.token)
   user$ = this.select((state) => state.user)
 
-  vm$ = this.user$.pipe(switchMap((user)=>
-      user ?
-        this.favoritesService.getFavorites().pipe(
-          // tap(res => {
-          //   console.log(res, 'IM HEREEEE!!!!!!!');
-          //   const ids: number[] = [];
-          //   res.forEach((favorite)=>{
-          //     ids.push(favorite.packageId);
-          //   })
-          //   this.patchState({
-          //     packageIds: ids
-          //   })
-          // })
-        )
-        : of(null)
-    ),
-    shareReplay(1)
-  )
-
-  constructor(private authService: AuthService, private router: Router,
-              private favoritesService: FavoritesService) {
+  constructor(private authService: AuthService, private router: Router) {
     super(initialState);
 
     this.state$.subscribe(console.log)
@@ -71,7 +51,7 @@ export class AuthStore extends ComponentStore<AuthState> {
 
   setInitialState = () => this.setState(initialState);
 
-  setNewState = (data: Partial<AuthState>) => this.patchState(data);
+  // setNewState = (data: Partial<AuthState>) => this.patchState(data);
 
   // isFavorite = (favorite: number) => {
   //   return this.favorites.find(item => item.packageId === favorite);
@@ -89,7 +69,6 @@ export class AuthStore extends ComponentStore<AuthState> {
       switchMap((credentials) =>
         this.authService.login(credentials).pipe(
           tap((res) => {
-            console.log(res, 'HEREEEE!!!!!!!!!!!!11');
             this.patchState({
               user: res,
               token: res.token,
@@ -170,52 +149,4 @@ export class AuthStore extends ComponentStore<AuthState> {
       )
     )
   )
-
-  // setFavorite = this.effect((favorite$: Observable<number>) => favorite$.pipe(
-  //   switchMap(favorite => this.favoritesService.postFavorite(favorite).pipe(
-  //     concatMap(() => {
-  //       return this.favoritesService.getFavorites().pipe(
-  //         tap((res) => {
-  //           this.patchState({
-  //             favorites: res
-  //           })
-  //           localStorage.setItem('favorites', JSON.stringify(res))
-  //         }),
-  //         catchError((err)=> {
-  //           console.error('Cannot get favorites', err);
-  //           return EMPTY;
-  //         })
-  //       )
-  //     }),
-  //     catchError(err => {
-  //       console.error('Cannot add favorite', err);
-  //       return EMPTY;
-  //     })
-  //   ))
-  // ));
-  //
-  // removeFavorite = this.effect((favorite$: Observable<number>) => favorite$.pipe(
-  //   switchMap(favorite => this.favoritesService.deleteFavorite(favorite).pipe(
-  //     concatMap(() => {
-  //       return this.favoritesService.getFavorites().pipe(
-  //         tap((res) => {
-  //           this.patchState({
-  //             favorites: res
-  //           })
-  //           localStorage.setItem('favorites', JSON.stringify(res))
-  //         }),
-  //         catchError((err) => {
-  //           console.error('Cannot get favorites', err);
-  //           return EMPTY;
-  //         })
-  //       )
-  //     }),
-  //     catchError(err => {
-  //       console.error('Cannot remove favorite', err);
-  //       return EMPTY;
-  //     })
-  //   ))
-  // ));
-
-
 }

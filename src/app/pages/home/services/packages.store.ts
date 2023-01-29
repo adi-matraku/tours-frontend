@@ -5,6 +5,7 @@ import {PackagesService} from "./packages.service";
 import {PackageDataModel} from "../../../shared/models/package-data.model";
 import {PackageResponseModel} from "../../../shared/models/package-response.model";
 import {FavoritesStore} from "../../favorites/services/favorites.store";
+import {AuthStore} from "../../../core/services/auth.store";
 
 export interface PackageParams {
   name: string | null;
@@ -34,9 +35,27 @@ export const initialState: PackagesState = {
   total: 0,
 }
 
-@Injectable()
+@Injectable({
+  providedIn: "root"
+})
 export class PackagesStore extends ComponentStore<PackagesState> {
-  constructor(private packageService: PackagesService, private favoritesStore: FavoritesStore) {
+
+  packages$ = this.select(s => s.data);
+
+  vm$ = this.select(
+    this.packages$,
+    this.favoritesStore.favoritePackagesIds$,
+    (packages, favoriteIds) => {
+      return packages.map(p => ({
+        ...p,
+        isFavorite: this.authStore.state.user ? favoriteIds.includes(p.id) : undefined
+      }))
+    }
+  );
+
+  constructor(private packageService: PackagesService, private favoritesStore: FavoritesStore,
+              private authStore: AuthStore
+  ) {
     super(initialState);
 
     this.state$.subscribe(console.log)
@@ -47,18 +66,7 @@ export class PackagesStore extends ComponentStore<PackagesState> {
 
   // favoritePackagesIds$ = of([1,23,4,5]);
 
-  packages$ = this.select(s => s.data);
-
-  vm$ = this.select(
-    this.packages$,
-    this.favoritesStore.favoritePackagesIds$,
-    (packages, favoriteIds) => {
-      return packages.map(p => ({
-        ...p,
-        isFavorite: favoriteIds.includes(p.id)
-      }))
-    }
-  );
+  setInitialState = () => this.setState(initialState);
 
   get params() {
     return this.get(s => s.params);

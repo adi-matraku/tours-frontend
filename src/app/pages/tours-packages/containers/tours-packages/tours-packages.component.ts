@@ -32,7 +32,7 @@ import {PagesPagination} from "../../../../shared/models/pages-pagination.model"
   styleUrls: ['./tours-packages.component.scss'],
   providers: [ToursStore]
 })
-export class ToursPackagesComponent implements OnInit{
+export default class ToursPackagesComponent implements OnInit{
 
   search = new FormControl(null)
 

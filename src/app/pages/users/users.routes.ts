@@ -1,15 +1,16 @@
 import {Route} from "@angular/router";
-import {AuthGuard} from "../../core/guards/auth.guard";
+import {authGuard} from "../../core/guards/auth.guard";
 import {RoleGuard} from "../../core/guards/role.guard";
 
-export const USERS_ROUTES: Route[] = [
+const USERS_ROUTES: Route[] = [
   {
     path: '',
-    canActivate: [AuthGuard, RoleGuard],
+    canActivate: [authGuard, RoleGuard],
     data: {
       role: ['Admin', 0]
     },
     loadComponent: () => import('./containers/users/users.component')
-      .then((m) => m.UsersComponent)
   },
 ]
+
+export default USERS_ROUTES;

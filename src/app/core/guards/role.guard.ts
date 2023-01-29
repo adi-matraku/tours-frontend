@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
-import {map, Observable, of, pluck, tap} from 'rxjs';
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
+import {map, Observable, pluck} from 'rxjs';
 import {AuthStore} from "../services/auth.store";
 
 @Injectable({
@@ -17,6 +17,7 @@ export class RoleGuard implements CanActivate {
     return this.authStore.user$.pipe(
       pluck('role'),
       map(role => {
+        console.log(route);
         if (route.data['role'].includes(role)) {
           return true;
         }

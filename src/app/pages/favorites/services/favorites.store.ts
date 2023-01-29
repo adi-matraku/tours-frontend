@@ -34,7 +34,6 @@ export class FavoritesStore extends ComponentStore<FavoritesState> {
       user ?
         this.favoritesService.getFavorites().pipe(
          tap(res => {
-           console.log(res, 'IM HEREEEE!!!!!!!');
            const ids: number[] = [];
            res.forEach((favorite)=>{
              ids.push(favorite.packageId);
@@ -55,6 +54,12 @@ export class FavoritesStore extends ComponentStore<FavoritesState> {
     this.state$.subscribe(console.log);
   }
 
+  get packageIds() {
+    return this.get(s => s.packageIds);
+  }
+
+  setInitialState = () => this.setState(initialState);
+
   loadFavorites = this.effect((_$) =>
     _$.pipe(
       switchMap((_) => {
@@ -66,7 +71,6 @@ export class FavoritesStore extends ComponentStore<FavoritesState> {
         });
         return this.favoritesService.getFavorites().pipe(
           tap((res) => {
-            console.log(res, 'HEREEEEEEEEE!!!1 LOADDD');
             this.patchState({
               data: res,
               loading: false,
@@ -88,43 +92,53 @@ export class FavoritesStore extends ComponentStore<FavoritesState> {
     )
   );
 
-  // markAsFavorite = this.effect((favorite$: Observable<number>) => favorite$.pipe(
-  //   switchMap(favorite => this.favoritesService.postFavorite(favorite).pipe(
-  //     tap((res)=>{
-  //       console.log(res);
-  //
-  //     }),
-  //     catchError(err => {
-  //       console.error('Cannot add favorite', err);
-  //       return EMPTY;
-  //     })
-  //   ))
-  // ));
-
   setFavorite = this.effect((favorite$: Observable<number>) => favorite$.pipe(
     switchMap(favorite => this.favoritesService.postFavorite(favorite).pipe(
-      concatMap(() => {
-        return this.favoritesService.getFavorites().pipe(
-          tap((res) => {
-            // this.authStore.patchState({
-            //   favorites: res
-            // })
-            const ids: number[] = [];
-            res.forEach((favorite)=>{
-              ids.push(favorite.packageId);
-            })
-            this.patchState({
-              packageIds: ids
-            })
-          }),
-          catchError((err)=> {
-            console.error('Cannot get favorites', err);
-            return EMPTY;
-          })
-        )
-      }),
+      tap(() => {
+        const ids = this.packageIds;
+        ids.unshift(favorite);
+        console.log(ids);
+        this.patchState({
+          packageIds: [...ids]
+        })
+        // return this.favoritesService.getFavorites().pipe(
+        //   tap((res) => {
+        //     // this.authStore.patchState({
+        //     //   favorites: res
+        //     // })
+        //     const ids: number[] = [];
+        //     res.forEach((favorite)=>{
+        //       ids.push(favorite.packageId);
+        //     })
+        //     this.patchState({
+        //       packageIds: ids
+        //     })
+        //   }),
+        //   catchError((err)=> {
+        //     console.error('Cannot get favorites', err);
+        //     return EMPTY;
+        //   })
+        // )
+        }
+      ),
       catchError(err => {
-        console.error('Cannot add favorite', err);
+        console.log('Cannot add favorite', err);
+        return EMPTY;
+      })
+    ))
+  ));
+
+  removeFavorite = this.effect((favorite$: Observable<number>) => favorite$.pipe(
+    switchMap(favorite => this.favoritesService.deleteFavorite(favorite).pipe(
+      tap(() => {
+        const ids = this.packageIds;
+        console.log(ids.filter(x => x !== favorite));
+        this.patchState({
+          packageIds: ids.filter(x => x !== favorite)
+        })
+      }),
+      catchError(error => {
+        console.log('Cannot remove favorite', error);
         return EMPTY;
       })
     ))

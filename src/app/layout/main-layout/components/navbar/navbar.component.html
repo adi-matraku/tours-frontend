@@ -1,0 +1,61 @@
+<div class="links-list">
+  <ul class="list-items">
+    <li class="list-items-navigation">
+      <a routerLinkActive="active" routerLink="home" class="nav-link">Home</a>
+    </li>
+    <li *appRole="['Admin', 0]">
+      <button mat-button [matMenuTriggerFor]="afterMenu" class="mat-menu-title">Dashboard</button>
+      <mat-menu #afterMenu="matMenu" xPosition="after">
+        <button mat-menu-item routerLink="tours-packages">
+                <span class="flex profile-gap">
+                  <span class="material-icons">flight_takeoff</span>
+                  <span class="title">Packages</span>
+                </span>
+        </button>
+        <button mat-menu-item routerLink="users">
+                <span class="flex profile-gap">
+                  <span class="material-icons">person_outline</span>
+                  <span class="title">Users</span>
+                </span>
+        </button>
+      </mat-menu>
+    </li>
+  </ul>
+
+  <ul class="list-items">
+    <ng-container *ngIf="!authState.authenticated && !authState.user; else authenticated">
+      <li class="list-items">
+        <a routerLinkActive="active" routerLink="auth" class="nav-link">Login</a>
+      </li>
+    </ng-container>
+    <ng-template #authenticated>
+      <ng-container *ngIf="authState.authenticated && authState.user">
+        <ng-container *ngIf="favoritesStore.vm$ | async">
+          <li class="list-items">
+            <a routerLinkActive="active" routerLink="favorites" class="nav-link">
+              Favorites ({{ favState.packageIds.length }})
+            </a>
+          </li>
+        </ng-container>
+        <li>
+          <button mat-button [matMenuTriggerFor]="beforeMenu" class="mat-menu-title">{{authState.user.name}}</button>
+          <mat-menu class="profile-menu" #beforeMenu="matMenu" xPosition="before">
+            <button mat-menu-item routerLink="profile">
+                    <span class="flex profile-gap">
+                      <span class="material-icons">person_outline</span>
+                      <span class="title">Profile</span>
+                    </span>
+            </button>
+            <button mat-menu-item (click)="loggedOut.emit()">
+                    <span class="flex profile-gap">
+                      <span class="material-icons">logout</span>
+                      <span class="title">Logout</span>
+                    </span>
+            </button>
+          </mat-menu>
+        </li>
+      </ng-container>
+    </ng-template>
+
+  </ul>
+</div>

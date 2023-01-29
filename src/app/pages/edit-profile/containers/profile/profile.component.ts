@@ -43,7 +43,7 @@ export default class ProfileComponent {
         return this.profileService.getProfile().pipe(take(1),
         tap((res) => {
           this.loadingButton = false;
-          this.authStore.setNewState({user: res});
+          this.authStore.patchState({user: res});
           localStorage.setItem('user', JSON.stringify(res));
           this.snackBar.open('Edited successfully', 'Success', {duration: 1500})
           this.router.navigateByUrl('/home').then();
@@ -59,27 +59,5 @@ export default class ProfileComponent {
         return of(null);
       }))
     ).subscribe((res)=> console.log(res))
-    // this.profileService.updateProfile(data).pipe(take(1)).subscribe({
-    //   next: res => {
-    //     this.profileService.getProfile().pipe(take(1)).subscribe({
-    //       next: user => {
-    //         this.loadingButton = false;
-    //         this.authStore.setNewState({user: user});
-    //         this.openSnackBar('Edited Successfully');
-    //         this.router.navigateByUrl('/home').then();
-    //       },
-    //       error: err => {
-    //         console.log(err);
-    //         this.loadingButton = false;
-    //         this.openSnackBar(err.error);
-    //       }
-    //     });
-    //   },
-    //   error: err => {
-    //     console.log(err);
-    //     this.loadingButton = false;
-    //     this.openSnackBar(err.error);
-    //   }
-    // })
   }
 }

@@ -19,9 +19,7 @@ export const appRoutes: Routes = [
     path: '', component: MainLayoutComponent, children: [
       {
         path: 'home',
-        loadChildren: () =>
-          import('./pages/home/home.routes')
-            .then((m) => m.HOME_ROUTES)
+        loadChildren: () => import('./pages/home/home.routes')
       },
       {
         path: 'profile',
@@ -29,21 +27,15 @@ export const appRoutes: Routes = [
       },
       {
         path: 'favorites',
-        loadChildren: () =>
-          import('./pages/favorites/favorites.routes')
-            .then((m) => m.FAVORITE_ROUTES)
+        loadChildren: () => import('./pages/favorites/favorites.routes')
       },
       {
         path: 'tours-packages',
-        loadChildren: () =>
-          import('./pages/tours-packages/tours.routes')
-            .then((m) => m.TOURS_ROUTES)
+        loadChildren: () => import('./pages/tours-packages/tours.routes')
       },
       {
         path: 'users',
-        loadChildren: () =>
-          import('./pages/users/users.routes')
-            .then((m) => m.USERS_ROUTES)
+        loadChildren: () => import('./pages/users/users.routes')
       },
     ]
   },

@@ -13,9 +13,8 @@ import {PagesFilteringModel} from "../../models/pages-filtering.model";
   imports: [CommonModule, PackagesComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  providers: [PackagesStore]
 })
-export class HomeComponent implements OnInit {
+export default class HomeComponent implements OnInit {
 
   constructor(public store: PackagesStore, private router: Router, private route: ActivatedRoute) { }
 

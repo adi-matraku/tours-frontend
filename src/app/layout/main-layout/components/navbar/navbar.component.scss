@@ -1,0 +1,49 @@
+.links-list {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .list-items {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    list-style: none;
+
+    &-navigation {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+
+    .nav-link {
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 1.3rem;
+      color: #1c1b1b;
+    }
+
+    .active {
+      color: #2d68ff;
+      font-weight: 700;
+    }
+
+    .mat-menu-title {
+      font-size: 1.3rem;
+      font-family: "Poppins", sans-serif;
+      font-weight: 600;
+    }
+
+  }
+}
+
+.profile-gap {
+  gap: .5rem;
+
+  .material-icons {
+    font-size: 18px;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+}

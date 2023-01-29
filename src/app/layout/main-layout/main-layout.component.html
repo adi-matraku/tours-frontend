@@ -1,70 +1,18 @@
 <div class="navigation">
   <div class="navigation-content">
     <a class="heading-link" routerLink="home">Tours</a>
-    <ng-container *ngIf="authStore.state$ | async as state">
-      <div class="links-list">
-        <ul class="list-items">
-          <li class="list-items-navigation">
-            <a routerLinkActive="active" routerLink="home" class="nav-link">Home</a>
-          </li>
-          <li *appRole="['Admin', 0]">
-            <button mat-button [matMenuTriggerFor]="afterMenu" class="mat-menu-title">Dashboard</button>
-            <mat-menu #afterMenu="matMenu" xPosition="after">
-              <button mat-menu-item routerLink="tours-packages">
-                <span class="flex profile-gap">
-                  <span class="material-icons">flight_takeoff</span>
-                  <span class="title">Packages</span>
-                </span>
-              </button>
-              <button mat-menu-item routerLink="users">
-                <span class="flex profile-gap">
-                  <span class="material-icons">person_outline</span>
-                  <span class="title">Users</span>
-                </span>
-              </button>
-            </mat-menu>
-          </li>
-        </ul>
-
-        <ul class="list-items">
-          <ng-container *ngIf="!state.authenticated && !state.user; else authenticated">
-            <li class="list-items">
-              <a routerLinkActive="active" routerLink="auth" class="nav-link">Login</a>
-            </li>
-          </ng-container>
-          <ng-template #authenticated>
-            <ng-container *ngIf="state.authenticated && state.user">
-              <ng-container *ngIf="favoritesStore.vm$ | async as vm">
-                <p>{{vm | json}}</p>
-                <li class="list-items">
-                  <a routerLinkActive="active" routerLink="favorites" class="nav-link">
-                    Favorites ({{ vm.length }})
-                  </a>
-                </li>
-              </ng-container>
-              <li>
-                <button mat-button [matMenuTriggerFor]="beforeMenu" class="mat-menu-title">{{state.user.name}}</button>
-                <mat-menu class="profile-menu" #beforeMenu="matMenu" xPosition="before">
-                  <button mat-menu-item routerLink="profile">
-                    <span class="flex profile-gap">
-                      <span class="material-icons">person_outline</span>
-                      <span class="title">Profile</span>
-                    </span>
-                  </button>
-                  <button mat-menu-item (click)="onLogout()">
-                    <span class="flex profile-gap">
-                      <span class="material-icons">logout</span>
-                      <span class="title">Logout</span>
-                    </span>
-                  </button>
-                </mat-menu>
-              </li>
-            </ng-container>
-          </ng-template>
-
-        </ul>
-      </div>
-    </ng-container>
+    <div class="content-nav">
+      <ng-container *ngIf="authStore.state$ | async as authState">
+        <ng-container *ngIf="favoritesStore.state$ | async as favState">
+          <app-navbar
+            [authState]="authState"
+            [favState]="favState"
+            (loggedOut)="onLogout()"
+          >
+          </app-navbar>
+        </ng-container>
+      </ng-container>
+    </div>
   </div>
 </div>
 <div>

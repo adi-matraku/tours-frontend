@@ -15,7 +15,6 @@ import {AuthStore} from "../../../../core/services/auth.store";
 import {PagesPagination} from "../../../../shared/models/pages-pagination.model";
 import {ActivatedRoute} from "@angular/router";
 import {take} from "rxjs";
-import {isEmpty} from "../../utils/checkEmpty.function";
 import {FavoritesStore} from "../../../favorites/services/favorites.store";
 
 @Component({
@@ -36,7 +35,7 @@ import {FavoritesStore} from "../../../favorites/services/favorites.store";
   styleUrls: ['./packages.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PackagesComponent {
+export class PackagesComponent implements OnInit{
 
   search = new FormControl(null)
 
@@ -52,7 +51,8 @@ export class PackagesComponent {
   @Output() paginationChanged = new EventEmitter<PagesFilteringModel>();
   @Output() filterChanged = new EventEmitter<string | null>();
 
-  constructor(public authStore: AuthStore, private route: ActivatedRoute, private favoritesStore: FavoritesStore) {
+  constructor(public authStore: AuthStore, private route: ActivatedRoute,
+              private favoritesStore: FavoritesStore) {
   }
 
   ngOnInit() {
@@ -62,14 +62,8 @@ export class PackagesComponent {
   }
 
   toggleFavorite(card: PackageDataModel) {
-    console.log(card);
-
-    console.log(card.isFavorite);
-    if (card.isFavorite) {
-      // this.authStore.removeFavorite(card.id);
-    } else {
-      this.favoritesStore.setFavorite(card.id);
-    }
+    card.isFavorite ? this.favoritesStore.removeFavorite(card.id) :
+      this.favoritesStore.setFavorite(card.id)
   }
 
   onPageChange(event: PagesPagination) {

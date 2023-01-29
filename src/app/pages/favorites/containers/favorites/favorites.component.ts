@@ -12,7 +12,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
   templateUrl: './favorites.component.html',
   styleUrls: ['./favorites.component.scss']
 })
-export class FavoritesComponent implements OnInit {
+export default class FavoritesComponent implements OnInit {
 
   constructor(public favoritesStore: FavoritesStore) {
   }

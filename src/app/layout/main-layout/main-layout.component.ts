@@ -7,11 +7,12 @@ import {MatMenuModule} from "@angular/material/menu";
 import {MatButtonModule} from "@angular/material/button";
 import {RoleDirective} from "../../shared/directives/role.directive";
 import {FavoritesStore} from "../../pages/favorites/services/favorites.store";
+import {NavbarComponent} from "./components/navbar/navbar.component";
 
 @Component({
   selector: 'app-main-layout',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatButtonModule, MatMenuModule, RoleDirective],
+  imports: [CommonModule, RouterModule, MatButtonModule, MatMenuModule, RoleDirective, NavbarComponent],
   templateUrl: './main-layout.component.html',
   styleUrls: ['./main-layout.component.scss']
 })
@@ -24,5 +25,4 @@ export class MainLayoutComponent {
     this.authStore.setInitialState();
     this.authService.logout();
   }
-
 }

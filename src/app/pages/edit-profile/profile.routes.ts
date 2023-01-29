@@ -1,10 +1,10 @@
 import {Route} from "@angular/router";
-import {AuthGuard} from "../../core/guards/auth.guard";
+import {authGuard} from "../../core/guards/auth.guard";
 
 const PROFILE_ROUTES: Route[] = [
   {
     path: '',
-    canActivate: [AuthGuard],
+    canActivate: [authGuard],
     loadComponent: () => import('./containers/profile/profile.component')
   },
 ]

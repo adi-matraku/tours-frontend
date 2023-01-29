@@ -30,7 +30,7 @@ import {PagesPagination} from "../../../../shared/models/pages-pagination.model"
   styleUrls: ['./users.component.scss'],
   providers: [UsersStore]
 })
-export class UsersComponent implements OnInit {
+export default class UsersComponent implements OnInit {
 
   form = this.fb.group({
     name: null,
