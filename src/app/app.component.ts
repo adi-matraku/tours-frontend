@@ -17,12 +17,11 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     const token = localStorage.getItem('token');
     const user = localStorage.getItem('user');
-    const favorites = localStorage.getItem('favorites');
+    // const favorites = localStorage.getItem('favorites');
 
     if (token && user) {
-      this.authStore.setNewState({
+      this.authStore.patchState({
         user: JSON.parse(user),
-        favorites: favorites ? JSON.parse(favorites) : [],
         token: token,
         authenticating: false,
         authenticated: true

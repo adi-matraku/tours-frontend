@@ -34,10 +34,11 @@
           </ng-container>
           <ng-template #authenticated>
             <ng-container *ngIf="state.authenticated && state.user">
-              <ng-container *ngIf="authStore.vm$ | async as favorites">
+              <ng-container *ngIf="favoritesStore.vm$ | async as favoritesStore">
+                <p>{{favoritesStore | json}}</p>
                 <li class="list-items">
                   <a routerLinkActive="active" routerLink="favorites" class="nav-link">
-                    Favorites ({{ favorites.length }})
+                    Favorites ({{ favoritesStore.length }})
                   </a>
                 </li>
               </ng-container>

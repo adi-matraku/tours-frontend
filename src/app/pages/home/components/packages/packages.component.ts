@@ -16,6 +16,7 @@ import {PagesPagination} from "../../../../shared/models/pages-pagination.model"
 import {ActivatedRoute} from "@angular/router";
 import {take} from "rxjs";
 import {isEmpty} from "../../utils/checkEmpty.function";
+import {FavoritesStore} from "../../../favorites/services/favorites.store";
 
 @Component({
   selector: 'app-packages',
@@ -51,7 +52,7 @@ export class PackagesComponent {
   @Output() paginationChanged = new EventEmitter<PagesFilteringModel>();
   @Output() filterChanged = new EventEmitter<string | null>();
 
-  constructor(public authStore: AuthStore, private route: ActivatedRoute) {
+  constructor(public authStore: AuthStore, private route: ActivatedRoute, private favoritesStore: FavoritesStore) {
   }
 
   ngOnInit() {
@@ -65,9 +66,9 @@ export class PackagesComponent {
 
     console.log(card.isFavorite);
     if (card.isFavorite) {
-      this.authStore.removeFavorite(card.id);
+      // this.authStore.removeFavorite(card.id);
     } else {
-      this.authStore.setFavorite(card.id);
+      this.favoritesStore.setFavorite(card.id);
     }
   }
 

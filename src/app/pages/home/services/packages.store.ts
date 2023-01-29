@@ -45,7 +45,7 @@ export class PackagesStore extends ComponentStore<PackagesState> {
   // favoritesStore.favoritePackageIds$
   // markAsFavorite, removeFavorite,
 
-  favoritePackagesIds$ = of([1,23,4,5]);
+  // favoritePackagesIds$ = of([1,23,4,5]);
 
   packages$ = this.select(s => s.data);
 

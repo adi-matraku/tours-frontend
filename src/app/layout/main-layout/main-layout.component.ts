@@ -6,6 +6,7 @@ import {AuthService} from "../../pages/auth/services/auth.service";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatButtonModule} from "@angular/material/button";
 import {RoleDirective} from "../../shared/directives/role.directive";
+import {FavoritesStore} from "../../pages/favorites/services/favorites.store";
 
 @Component({
   selector: 'app-main-layout',
@@ -16,7 +17,8 @@ import {RoleDirective} from "../../shared/directives/role.directive";
 })
 export class MainLayoutComponent {
 
-  constructor(public authStore: AuthStore, private authService: AuthService) { }
+  constructor(public authStore: AuthStore, private authService: AuthService,
+              public favoritesStore: FavoritesStore) { }
 
   onLogout() {
     this.authStore.setInitialState();
