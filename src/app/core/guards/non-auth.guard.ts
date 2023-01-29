@@ -3,7 +3,6 @@ import {CanActivateFn, Router} from '@angular/router';
 import {map} from 'rxjs';
 import {AuthStore} from "../services/auth.store";
 
-
 export const nonAuthGuard: CanActivateFn = () => {
   const authStore = inject(AuthStore);
   const router = inject(Router);

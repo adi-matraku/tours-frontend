@@ -36,6 +36,7 @@
       <ng-container *ngIf="authStore.state$ | async as state">
         <mat-card-actions>
           <button mat-button (click)="toggleFavorite(card)">
+            {{card | json}}
             {{card.isFavorite}}
             {{ card.isFavorite ? 'Remove from favorite' : 'Add to favorite'}}
           </button>

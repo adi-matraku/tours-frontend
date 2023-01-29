@@ -32,7 +32,7 @@
         <div class="flex-row gap-sm">
           <button mat-raised-button color="accent" type="button" (click)="onEdit(element)">Edit</button>
           <button mat-raised-button color="warn"
-                  (confirmDelete)="$event ? this.loadState.emit() : null" type="user">
+                  (confirmDelete)="$event ? this.loadState.emit() : null" [data]="{data: element, type: 'tour'}">
             Delete
           </button>
         </div>

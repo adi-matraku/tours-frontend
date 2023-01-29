@@ -1,5 +1,5 @@
 import {ComponentStore} from "@ngrx/component-store";
-import {catchError, concatMap, EMPTY, Observable, switchMap, tap} from "rxjs";
+import {catchError, concatMap, EMPTY, Observable, of, shareReplay, switchMap, take, tap} from "rxjs";
 import {AuthService} from "../../pages/auth/services/auth.service";
 import {UserCredentials} from "../../pages/auth/models/user-credentials.model";
 import {Injectable} from "@angular/core";
@@ -37,13 +37,16 @@ export class AuthStore extends ComponentStore<AuthState> {
   token$ = this.select((state) => state.token)
   user$ = this.select((state) => state.user)
 
-  // vm$ = this.user$.pipe(
-  //   if(user) {
-  //     this.favoritesService.getFavorites();
-  //   }
-  // )
+  vm$ = this.user$.pipe(switchMap((user)=>
+    user ?
+      this.favoritesService.getFavorites() :
+      of(null)
+  ),
+    shareReplay(1)
+  )
 
-  constructor(private authService: AuthService, private router: Router, private favoritesService: FavoritesService) {
+  constructor(private authService: AuthService, private router: Router,
+              private favoritesService: FavoritesService) {
     super(initialState);
 
     this.state$.subscribe(console.log)
@@ -92,23 +95,23 @@ export class AuthStore extends ComponentStore<AuthState> {
             if(res.token) localStorage.setItem('token', res.token)
             this.router.navigateByUrl('home').then();
           }),
-          concatMap(() => {
-            return this.favoritesService.getFavorites().pipe(
-              tap((res) => {
-                this.patchState({
-                  favorites: res
-                })
-                localStorage.setItem('favorites', JSON.stringify(res))
-              }),
-              catchError((err)=> {
-                console.error('Could not get favorites' ,err);
-                this.patchState({
-                  favorites: []
-                });
-                return EMPTY;
-              })
-            )
-          }),
+          // concatMap(() => {
+          //   return this.favoritesService.getFavorites().pipe(
+          //     tap((res) => {
+          //       this.patchState({
+          //         favorites: res
+          //       })
+          //       localStorage.setItem('favorites', JSON.stringify(res))
+          //     }),
+          //     catchError((err)=> {
+          //       console.error('Could not get favorites' ,err);
+          //       this.patchState({
+          //         favorites: []
+          //       });
+          //       return EMPTY;
+          //     })
+          //   )
+          // }),
           catchError((err) => {
             this.patchState({
               user: null,

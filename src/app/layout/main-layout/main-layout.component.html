@@ -7,7 +7,7 @@
           <li class="list-items-navigation">
             <a routerLinkActive="active" routerLink="home" class="nav-link">Home</a>
           </li>
-          <li [appRole]="['Admin', 0]">
+          <li *appRole="['Admin', 0]">
             <button mat-button [matMenuTriggerFor]="afterMenu" class="mat-menu-title">Dashboard</button>
             <mat-menu #afterMenu="matMenu" xPosition="after">
               <button mat-menu-item routerLink="tours-packages">
@@ -34,11 +34,13 @@
           </ng-container>
           <ng-template #authenticated>
             <ng-container *ngIf="state.authenticated && state.user">
-              <li class="-list-items">
-                <a routerLinkActive="active" routerLink="favorites" class="nav-link">
-                  Favorites ({{ state.favorites.length }})
-                </a>
-              </li>
+              <ng-container *ngIf="authStore.vm$ | async as favorites">
+                <li class="list-items">
+                  <a routerLinkActive="active" routerLink="favorites" class="nav-link">
+                    Favorites ({{ favorites.length }})
+                  </a>
+                </li>
+              </ng-container>
               <li>
                 <button mat-button [matMenuTriggerFor]="beforeMenu" class="mat-menu-title">{{state.user.name}}</button>
                 <mat-menu class="profile-menu" #beforeMenu="matMenu" xPosition="before">

@@ -4,6 +4,7 @@ import {catchError, EMPTY, Observable, of, switchMap, tap} from "rxjs";
 import {PackagesService} from "./packages.service";
 import {PackageDataModel} from "../../../shared/models/package-data.model";
 import {PackageResponseModel} from "../../../shared/models/package-response.model";
+import {FavoritesStore} from "../../favorites/services/favorites.store";
 
 export interface PackageParams {
   name: string | null;
@@ -35,7 +36,7 @@ export const initialState: PackagesState = {
 
 @Injectable()
 export class PackagesStore extends ComponentStore<PackagesState> {
-  constructor(private packageService: PackagesService) {
+  constructor(private packageService: PackagesService, private favoritesStore: FavoritesStore) {
     super(initialState);
 
     this.state$.subscribe(console.log)
@@ -50,7 +51,7 @@ export class PackagesStore extends ComponentStore<PackagesState> {
 
   vm$ = this.select(
     this.packages$,
-    this.favoritePackagesIds$,
+    this.favoritesStore.favoritePackagesIds$,
     (packages, favoriteIds) => {
       return packages.map(p => ({
         ...p,

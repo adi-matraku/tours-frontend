@@ -1,4 +1,4 @@
-import {Directive, ElementRef, Input} from '@angular/core';
+import {Directive, Input, OnInit, TemplateRef, ViewContainerRef} from '@angular/core';
 import {AuthStore} from "../../core/services/auth.store";
 import {map, pluck, take} from "rxjs";
 
@@ -6,25 +6,41 @@ import {map, pluck, take} from "rxjs";
   selector: '[appRole]',
   standalone: true
 })
-export class RoleDirective {
+export class RoleDirective implements OnInit {
 
-  @Input() appRole: any[] = [];
+  // @Input() appRole: any[] = [];
 
-  constructor(private authStore: AuthStore, private elementRef: ElementRef) { }
-
-  ngOnInit() {
+  @Input() set appRole(roles: any[]) {
     this.authStore.user$.pipe(
       take(1),
       pluck('role'),
       map(role => {
-        console.log(this.appRole);
-        if (this.appRole.includes(role)) {
+        if (roles.includes(role)) {
+          this.viewContainer.createEmbeddedView(this.templateRef);
           return true;
         }
-        this.elementRef.nativeElement.remove();
+        this.viewContainer.clear();
         return false;
       })
     ).subscribe();
+  }
+
+  constructor(private authStore: AuthStore,private templateRef: TemplateRef<any>,
+              private viewContainer: ViewContainerRef) { }
+
+  ngOnInit() {
+    // this.authStore.user$.pipe(
+    //   take(1),
+    //   pluck('role'),
+    //   map(role => {
+    //     if (this.appRole.includes(role)) {
+    //       this.viewContainer.createEmbeddedView(this.templateRef);
+    //       return true;
+    //     }
+    //     this.viewContainer.clear();
+    //     return false;
+    //   })
+    // ).subscribe();
 
     // this.authStore.user$.pipe(take(1)).subscribe((res)=>{
     //   if(this.appRole.includes(res?.role)) {
